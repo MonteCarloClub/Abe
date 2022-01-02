@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <PlaceHolder msg="这是一个超炫酷的主页"/>
+  <div class="user">
+    <PlaceHolder msg="这是一个组织页面"/>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import PlaceHolder from '@/components/PlaceHolder.vue'
 
 export default {
-  name: 'Home',
+  name: 'Organization',
   components: {
     PlaceHolder
   }
