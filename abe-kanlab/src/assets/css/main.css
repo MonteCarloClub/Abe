@@ -1,0 +1,13 @@
+:root {
+    --row-distance: 10px;
+    --content-padding: 16px;
+}
+
+body {
+    margin: 0;
+    background-color: #f1f1f2;
+}
+
+.main-content {
+    padding: var(--content-padding, 16px);
+}

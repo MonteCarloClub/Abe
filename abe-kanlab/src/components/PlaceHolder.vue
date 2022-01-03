@@ -1,6 +1,6 @@
 <template>
   <div class="placeholder">
-    <div>{{ msg }}</div>
+    <div class="card">{{ msg }}</div>
   </div>
 </template>
 
@@ -18,5 +18,6 @@ export default {
 .placeholder {
   text-align: center;
   line-height: 60px;
+  padding: var(--row-distance, 10px) 0;
 }
 </style>

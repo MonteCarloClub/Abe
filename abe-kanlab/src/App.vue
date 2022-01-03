@@ -24,9 +24,8 @@
           </el-submenu>
         </el-menu>
       </el-header>
-      <el-main>
-        <router-view />
-      </el-main>
+      <!-- 内容 -->
+      <router-view />
     </el-container>
   </div>
 </template>
@@ -63,13 +62,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-width: 1000px;
-  max-width: 1400px;
   margin: auto;
 }
 
@@ -92,14 +90,11 @@ export default {
 }
 
 .el-header {
-  height: 60px;
+  background-color: white;
   position: sticky;
-  top: 0;
   z-index: 100;
+  top: 0;
 }
-</style>
-
-<style scoped>
 
 .logo {
   display: flex;
@@ -112,9 +107,17 @@ export default {
   width: auto;
 }
 
+
+@font-face {
+  font-family: "MoonDance";
+  src: local("MoonDance"),
+   url(./assets/fonts/MoonDance-Regular.ttf) format("truetype");
+}
+
 .logo > div {
-  font-family: fantasy;
-  font-size: 24px;
+  font-family: MoonDance;
+  font-size: 36px;
+  font-weight: bold;
   margin-left: 12px;
 }
 </style>

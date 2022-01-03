@@ -10,6 +10,9 @@ Vue.use(ElementUI);
 // 路由层面的权限控制
 import './permission' 
 
+// 导入全局样式
+import "@/assets/css/main.css"
+
 Vue.config.productionTip = false
 
 new Vue({

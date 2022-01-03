@@ -1,5 +1,5 @@
 <template>
-  <div class="user">
+  <div>
     <PlaceHolder msg="这是一个组织页面"/>
   </div>
 </template>
