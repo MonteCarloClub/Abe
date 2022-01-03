@@ -2,8 +2,62 @@ import request from '@/utils/request'
 import { localUsers } from "../mock/users"
 import { Message } from 'element-ui'
 
-export function login(data) {
+/**
+ * 注册用户
+ * @param {*} _data 来自 ui 界面的参数，用于发送请求，字段不一定和请求字段一致，需要转换一下
+ * @returns Promise
+ */
+export function signUp(_data) {
+    // 根据接口文档将字段转换成后台需要的
+    // userName 用户名
+    // userType 用户类型(user/org)
+    // channel  用户所在通道
+    // password 密码
+    const data = {
+        userName: _data.name,
+        password: _data.password,
+        userType: _data.role,
+        channel : _data.channel
+    }
 
+    return new Promise((resolve, reject) => {
+        request({
+            url: '/user/create',
+            method: 'post',
+            data
+        }).then(response => {
+            // {
+            //     "code":200, //200，成功；其他，失败
+            //     "msg":"",
+            //     "data":null 
+            // }
+            if (response.code === 200) {
+                resolve(response.data)
+            }
+            else {
+                reject(response)
+            }
+        }).catch(error => {
+            // 调用 Mock 的数据
+            if (error) {
+                const resp = localUsers.signup(data)
+                if (resp.err === 0) {
+                    resolve(resp)
+                }
+                else {
+                    Message({
+                        message: "用户已存在",
+                        duration: 5 * 1000
+                    })
+                }
+            }
+            else reject(error)
+        })
+    })
+}
+
+
+export function login(data) {
     function dataHandler(resolve, resp) {
         switch (resp.err) {
             case 0:
@@ -49,49 +103,8 @@ export function login(data) {
     })
 }
 
-
-export function signUp(data) {
-    
-    function dataHandler(resolve, resp) {
-        switch (resp.err) {
-            case 0:
-                resolve(resp)
-                break;
-
-            case 1:
-                Message({
-                    message: "用户已存在",
-                    duration: 5 * 1000
-                })
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    return new Promise((resolve, reject) => {
-        request({
-            url: '/vue-element-admin/user/login',
-            method: 'post',
-            data
-        }).then(response => {
-            const { data } = response
-            dataHandler(resolve, data)
-        }).catch(error => {
-            if (error) {
-                const resp = localUsers.signup(data)
-                console.log("api", resp);
-                dataHandler(resolve, resp)
-            }
-            else reject(error)
-        })
-    })
-
-}
-
 export function getInfo(token) {
-      
+
     function dataHandler(resolve, resp) {
         switch (resp.err) {
             case 0:

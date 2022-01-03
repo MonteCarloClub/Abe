@@ -5,40 +5,39 @@
         <el-card class="sign-card">
           <div slot="header" class="clearfix">
             <span>注册</span>
-            <router-link
-              :to="{ name: 'login' }"
-              class="sign-card-header--button"
-            >
+            <router-link :to="{ name: 'login' }" class="sign-card-header--button">
               前往登录
             </router-link>
           </div>
 
           <el-form ref="signupForm" :model="signup" :rules="signupRules">
             <el-form-item label="用户名" prop="name">
-              <el-input
-                v-model="signup.name"
-                placeholder="请输入用户名"
-              ></el-input>
+              <el-input v-model="signup.name" placeholder="请输入用户名"></el-input>
+            </el-form-item>
+
+            <el-form-item label="所在通道" prop="channel">
+              <el-input v-model="signup.channel" placeholder="请输入用户所在通道"></el-input>
             </el-form-item>
 
             <el-form-item label="密码" prop="password">
-              <el-input
-                v-model="signup.password"
-                placeholder="请输入密码"
-                show-password
-              ></el-input>
+              <el-input v-model="signup.password" placeholder="请输入密码" show-password></el-input>
+            </el-form-item>
+
+            <el-form-item label="用户角色" prop="role" style="text-align: right">
+              <el-radio-group v-model="signup.role">
+                <el-radio v-for="role in userRoles" :key="role.name" :label="role.name">
+                  {{ role.label }}
+                </el-radio>
+              </el-radio-group>
             </el-form-item>
 
             <el-form-item>
-              <el-button
-                style="width: 100%"
-                type="primary"
-                @click="onSignupSubmit"
-              >
+              <el-button :disabled="!agree" style="width: 100%" type="primary" @click="onSignupSubmit">
                 注册
               </el-button>
             </el-form-item>
           </el-form>
+          <el-checkbox v-model="agree">我自愿承担使用本应用时可能出现的风险</el-checkbox>
         </el-card>
       </div>
     </div>
@@ -46,7 +45,7 @@
 </template>
 
 <script>
-import { actions } from "../store/actions";
+import { signUp } from "@/api/user.js";
 
 export default {
   name: "SignUp",
@@ -57,25 +56,37 @@ export default {
       signup: {
         name: "",
         password: "",
+        role: "user", // 用户默认角色
+        channel: "", // 请输入用户所在通道
       },
       signupRules: {
         name: [{ required: true, trigger: "blur", message: "用户名不能为空" }],
-        password: [
-          { required: true, trigger: "blur", message: "密码不能为空" },
-          { min: 8, trigger: "blur", message: "密码长度至少为 8 位" },
-        ],
+        password: [{ required: true, trigger: "blur", message: "密码不能为空" }],
+        role: [{ required: true, trigger: "blur", message: "请勾选用户角色" }],
+        channel: [{ required: true, trigger: "blur", message: "请输入用户所在通道" }],
       },
+      userRoles: [
+        {
+          label: "用户",
+          name: "user",
+        },
+        {
+          label: "组织",
+          name: "org",
+        },
+      ],
+      agree: false,
     };
   },
 
   methods: {
     onSignupSubmit() {
+      console.log(this.signup);
       this.$refs.signupForm.validate((valid) => {
         if (!valid) return;
-
+        // 开始加载
         this.loading = true;
-        actions
-          .signup(this.signup)
+        signUp(this.signup)
           .then((user) => {
             this.$message({
               message: "注册成功，请登录",
@@ -89,7 +100,8 @@ export default {
           .catch((err) => {
             console.log(err);
           })
-          .finally(()=>{
+          .finally(() => {
+            // 结束加载
             this.loading = false;
           });
       });
@@ -117,5 +129,12 @@ export default {
 
 .sign-card-header--button:hover {
   color: #409eff;
+}
+
+.tips {
+  line-height: 19px;
+  font-size: 14px;
+  color: #606266;
+  font-weight: 500;
 }
 </style>

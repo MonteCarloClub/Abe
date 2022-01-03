@@ -1,21 +1,9 @@
 import { mutations, getters } from "./store";
-import { login, signUp, getInfo, logout } from "../api/user"
+import { login, getInfo, logout } from "../api/user"
 import { setToken, removeToken } from '../utils/cookie'
 
 // 与全局状态（store/state）有关的业务接口，即会改变全局状态的操作
 export const actions = {
-    // 注册
-    signup(userInfo) {
-        const { name, password } = userInfo
-        return new Promise((resolve, reject) => {
-            signUp({ name, password }).then(response => {
-                const { data } = response
-                resolve(data)
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    },
     // 登录
     login(userInfo) {
         const { name, password } = userInfo

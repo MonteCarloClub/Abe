@@ -6,7 +6,7 @@ function mockUsers() {
     }
 
     function setUser(user) {
-        localStorage.setItem(user.name, JSON.stringify(user))
+        localStorage.setItem(user.userName, JSON.stringify(user))
     }
 
     function successResp(data) {
@@ -17,10 +17,18 @@ function mockUsers() {
     }
 
     return {
+        signup(user) {
+            if (getUser(user.userName)) {
+                return { err: 1 }
+            }
+
+            setUser(user)
+            return successResp(user)
+        },
 
         login(_user) {
-            const { name, password } = _user
-            const user = getUser(name);
+            const { userName, password } = _user
+            const user = getUser(userName);
 
             if (!user) {
                 return { err: 2 }
@@ -34,15 +42,6 @@ function mockUsers() {
             }
             // 密码错误
             return { err: 1 }
-        },
-
-        signup(user) {
-            if (getUser(user.name)) {
-                return { err: 1 }
-            }
-
-            setUser(user)
-            return successResp(user)
         },
 
         getInfo(token) {
