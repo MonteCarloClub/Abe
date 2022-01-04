@@ -44,7 +44,7 @@ export default {
   },
 
   computed: {
-    login: getters.userLogin,
+    login: getters.isLogin,
     userName: getters.userName,
   },
 

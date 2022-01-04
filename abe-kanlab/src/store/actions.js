@@ -1,6 +1,7 @@
-import { mutations, getters } from "./store";
-import { login, logout } from "../api/user"
-import { setToken, removeToken } from '../utils/cookie'
+import { mutations } from "./store";
+import { userApi } from "../api/user"
+import { setToken, removeToken, getToken } from '../utils/token'
+import { devLog } from "../utils/log";
 
 // 与全局状态（store/state）有关的业务接口，即会改变全局状态的操作
 export const actions = {
@@ -8,35 +9,36 @@ export const actions = {
     login(userInfo) {
         const { name, password } = userInfo
         return new Promise((resolve, reject) => {
-            login({ name, password }).then(data => {
-                mutations.setToken(data.token)
-                mutations.setUser(data)
-                resolve(data)
-            })
-            .catch(error => {
-                reject(error)
-            })
+            userApi.login({ name, password })
+                .then(user => {
+                    devLog(user)
+                    setToken(user.token)
+                    mutations.setUser(user)
+                    resolve(user)
+                })
+                .catch(error => {
+                    reject(error)
+                })
         })
+    },
+
+    // 自动静默登录
+    silentLogin() {
+        // 从本地持久存储中获得上一次的登录信息
+        let token = getToken()
+        devLog(token);
+        if (!token) return Promise.reject("")
+        // 尝试登录
+        let userInfo = token
+        return this.login(userInfo)
     },
 
     // 退出登录
     logout() {
-        return new Promise((resolve, reject) => {
-            logout(getters.token()).then(() => {
-                setToken('')
-                removeToken()
-                // resetRouter()
-                resolve()
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    },
-
-    resetToken() {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             setToken('')
             removeToken()
+            // resetRouter()
             resolve()
         })
     },

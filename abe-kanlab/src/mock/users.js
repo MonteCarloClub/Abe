@@ -6,7 +6,7 @@ function mockUsers() {
     }
 
     function setUser(user) {
-        localStorage.setItem(user.userName, JSON.stringify(user))
+        localStorage.setItem(user.name, JSON.stringify(user))
     }
 
     function successResp(data) {
@@ -18,7 +18,7 @@ function mockUsers() {
 
     return {
         signup(user) {
-            if (getUser(user.userName)) {
+            if (getUser(user.name)) {
                 return { err: 1 }
             }
 
@@ -40,7 +40,7 @@ function mockUsers() {
             // 登录成功，返回用户信息
             if (user.password === password) {
                 return successResp({
-                    token: "TEST_TOKEN-" + user.name,
+                    token: `${user.name}-${user.password}`,
                     ...user
                 })
             }

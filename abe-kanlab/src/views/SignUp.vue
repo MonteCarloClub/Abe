@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { signUp } from "@/api/user.js";
+import { userApi } from "@/api/user.js";
 
 export default {
   name: "SignUp",
@@ -84,12 +84,12 @@ export default {
 
   methods: {
     onSignupSubmit() {
-      console.log(this.signup);
       this.$refs.signupForm.validate((valid) => {
         if (!valid) return;
         // 开始加载
         this.loading = true;
-        signUp(this.signup)
+        userApi
+          .signup(this.signup)
           .then((user) => {
             this.$message({
               message: "注册成功，请登录",
