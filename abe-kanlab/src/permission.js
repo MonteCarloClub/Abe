@@ -47,9 +47,6 @@ router.beforeEach(async (to, from, next) => {
                         query: { redirect: to.path }
                     })
                 })
-                .finally(()=> {
-                    console.log("=======");
-                })
         }
     }
 })

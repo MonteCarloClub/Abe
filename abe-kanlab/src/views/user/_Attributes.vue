@@ -33,6 +33,12 @@ export default {
   mounted: function () {
     console.log("Attributes", "Mounted");
   },
+  activated: function () {
+    console.log("Attributes", "Activated");
+  },
+  deactivated: function () {
+    console.log("Attributes", "Deactivated");
+  },
   beforeUpdate: function () {
     console.log("Attributes", "BeforeUpdate");
   },

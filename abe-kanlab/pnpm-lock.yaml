@@ -13,6 +13,7 @@ specifiers:
   eslint-plugin-vue: ^6.2.2
   js-cookie: ^3.0.1
   sass-loader: ^12.4.0
+  velocity-animate: ^1.5.2
   vue: ^2.6.11
   vue-router: 3.0.7
   vue-template-compiler: ^2.6.11
@@ -23,6 +24,7 @@ dependencies:
   element-ui: 2.15.6_vue@2.6.14
   js-cookie: 3.0.1
   sass-loader: 12.4.0
+  velocity-animate: 1.5.2
   vue: registry.npmmirror.com/vue/2.6.14
   vue-router: 3.0.7
 
@@ -366,6 +368,10 @@ packages:
   /throttle-debounce/1.1.0:
     resolution: {integrity: sha512-XH8UiPCQcWNuk2LYePibW/4qL97+ZQ1AN3FNXwZRBNPPowo/NRU5fAlDCSNBJIYCKbioZfuYtMhG4quqoJhVzg==}
     engines: {node: '>=4'}
+    dev: false
+
+  /velocity-animate/1.5.2:
+    resolution: {integrity: sha512-m6EXlCAMetKztO1ppBhGU1/1MR3IiEevO6ESq6rcrSQ3Q77xYSW13jkfXW88o4xMrkXJhy/U7j4wFR/twMB0Eg==}
     dev: false
 
   /vue-loader/16.8.3_webpack@4.46.0:

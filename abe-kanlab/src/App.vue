@@ -24,8 +24,10 @@
           </el-submenu>
         </el-menu>
       </el-header>
-      <!-- 内容 -->
-      <router-view />
+      <!-- 内容，其中 User 页面被缓存 -->
+      <keep-alive include='User'>
+        <router-view></router-view>
+      </keep-alive>
     </el-container>
   </div>
 </template>
