@@ -47,7 +47,7 @@ export const userApi = {
                     }
                     else {
                         Message({
-                            message: "用户已存在",
+                            message: resp.msg,
                             duration: 5 * 1000
                         })
                     }

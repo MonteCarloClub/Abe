@@ -8,7 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
 // 路由层面的权限控制
-import './permission' 
+import './permission'
 
 // 导入全局样式
 import "@/assets/css/main.css"

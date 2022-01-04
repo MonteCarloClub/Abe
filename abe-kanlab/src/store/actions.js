@@ -5,7 +5,11 @@ import { devLog } from "../utils/log";
 
 // 与全局状态（store/state）有关的业务接口，即会改变全局状态的操作
 export const actions = {
-    // 登录
+    /**
+     * 登录，成功后会修改 store 中的全局状态
+     * @param {Object} userInfo 登录所需的用户信息
+     * @returns promise
+     */
     login(userInfo) {
         const { name, password } = userInfo
         return new Promise((resolve, reject) => {

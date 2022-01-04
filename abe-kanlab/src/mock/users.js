@@ -16,10 +16,17 @@ function mockUsers() {
         }
     }
 
+    function errorResp(msg) {
+        return {
+            err: 1,
+            msg
+        }
+    }
+
     return {
         signup(user) {
             if (getUser(user.name)) {
-                return { err: 1 }
+                return errorResp("用户已存在")
             }
 
             setUser(user)
@@ -31,10 +38,7 @@ function mockUsers() {
             const user = getUser(fileName);
 
             if (!user) {
-                return {
-                    err: 2,
-                    msg: "用户不存在"
-                }
+                return errorResp("用户不存在")
             }
 
             // 登录成功，返回用户信息
@@ -45,12 +49,9 @@ function mockUsers() {
                 })
             }
             // 密码错误
-            return {
-                err: 1,
-                msg: "密码错误"
-            }
+            return errorResp("密码错误")
         },
-        
+
         logout(token) {
             return successResp({ token })
         }
