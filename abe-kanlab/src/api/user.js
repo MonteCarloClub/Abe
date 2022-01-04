@@ -42,7 +42,7 @@ export function signUp(_data) {
             if (error) {
                 const resp = localUsers.signup(data)
                 if (resp.err === 0) {
-                    resolve(resp)
+                    resolve(resp.data)
                 }
                 else {
                     Message({
@@ -57,46 +57,41 @@ export function signUp(_data) {
 }
 
 
-export function login(data) {
-    function dataHandler(resolve, resp) {
-        switch (resp.err) {
-            case 0:
-                resolve(resp)
-                break;
-
-            case 1:
-                Message({
-                    message: "密码错误",
-                    type: 'error',
-                    duration: 5 * 1000
-                })
-                break;
-
-            case 2:
-                Message({
-                    message: "用户不存在",
-                    duration: 5 * 1000
-                })
-                break;
-
-            default:
-                break;
-        }
+export function login(_data) {
+    // fileName 用户名
+    // password 密码
+    const data = {
+        fileName: _data.name,
+        password: _data.password,
     }
 
     return new Promise((resolve, reject) => {
         request({
-            url: '/vue-element-admin/user/login',
+            url: '/dabe/user2',
             method: 'post',
             data
         }).then(response => {
-            const { data } = response
-            dataHandler(resolve, data)
+            // {
+            //     "code":200   200，成功；其他，失败
+            //     "msg" :null  描述
+            //     "data":user  user 实例
+            // }
+            if(response.code === 200) {
+                resolve(response.data)
+            }
+            reject(response)
         }).catch(error => {
             if (error) {
                 const resp = localUsers.login(data)
-                // console.log("api", resp);
-                dataHandler(resolve, resp)
+                if (resp.err === 0) {
+                    resolve(resp.data)
+                }
+                else {
+                    Message({
+                        message: resp.msg,
+                        duration: 5 * 1000
+                    })
+                }
             }
             else reject(error)
         })

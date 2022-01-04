@@ -1,46 +1,31 @@
 <template>
   <div class="sign">
     <div class="sign-container">
-      <div class="sign-in">
-        <el-card class="sign-card">
-          <div slot="header" class="clearfix">
-            <span>登录</span>
-            <router-link
-              :to="{ name: 'signup' }"
-              class="sign-card-header--button"
-            >
-              前往注册
-            </router-link>
-          </div>
+      <el-card class="sign-card">
+        <div slot="header" class="clearfix">
+          <span>登录</span>
+          <router-link :to="{ name: 'signup' }" class="sign-card-header--button">
+            前往注册
+          </router-link>
+        </div>
 
-          <el-form ref="loginForm" :model="login" :rules="loginRules">
-            <el-form-item prop="name">
-              <el-input
-                v-model="login.name"
-                placeholder="请输入用户名"
-                maxlength="11"
-              ></el-input>
-            </el-form-item>
-            <el-form-item prop="password">
-              <el-input
-                v-model="login.password"
-                placeholder="请输入密码"
-                show-password
-                @keyup.enter.native="onLoginSubmit"
-              ></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button
-                style="width: 100%"
-                type="primary"
-                @click="onLoginSubmit"
-              >
-                登录
-              </el-button>
-            </el-form-item>
-          </el-form>
-        </el-card>
-      </div>
+        <el-form ref="loginForm" :model="login" :rules="loginRules">
+          <el-form-item prop="name">
+            <el-input v-model="login.name" placeholder="请输入用户名" maxlength="11"></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input
+              v-model="login.password"
+              placeholder="请输入密码"
+              show-password
+              @keyup.enter.native="onLoginSubmit"
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button style="width: 100%" type="primary" @click="onLoginSubmit"> 登录 </el-button>
+          </el-form-item>
+        </el-form>
+      </el-card>
     </div>
   </div>
 </template>
@@ -60,9 +45,7 @@ export default {
       },
       loginRules: {
         name: [{ required: true, trigger: "blur", message: "手机号不能为空" }],
-        password: [
-          { required: true, trigger: "blur", message: "密码不能为空" },
-        ],
+        password: [{ required: true, trigger: "blur", message: "密码不能为空" }],
       },
 
       loading: false,
@@ -83,18 +66,12 @@ export default {
         this.loading = true;
         actions
           .login(this.login)
-          .then((data) => {
+          .then(() => {
             this.$message({
               message: "登录成功",
               type: "success",
             });
             this.jumpTo();
-            return data
-          })
-          .then((loginResp) => {
-            const {token} = loginResp;
-            // 获取 token 后立即获取用户信息
-            return actions.getInfo(token)
           })
           .catch((err) => {
             console.log(err);

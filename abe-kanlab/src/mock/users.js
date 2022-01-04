@@ -27,34 +27,32 @@ function mockUsers() {
         },
 
         login(_user) {
-            const { userName, password } = _user
-            const user = getUser(userName);
+            const { fileName, password } = _user
+            const user = getUser(fileName);
 
             if (!user) {
-                return { err: 2 }
+                return {
+                    err: 2,
+                    msg: "用户不存在"
+                }
             }
 
-            // 登录成功，返回 Token
+            // 登录成功，返回用户信息
             if (user.password === password) {
-                return successResp({ 
-                    token: "TEST_TOKEN-" + user.name
+                return successResp({
+                    token: "TEST_TOKEN-" + user.name,
+                    ...user
                 })
             }
             // 密码错误
-            return { err: 1 }
-        },
-
-        getInfo(token) {
-            let sp = token.split('-');
-            if (sp.length === 2 && getUser(sp[1])) {
-                return successResp(getUser(sp[1]))
+            return {
+                err: 1,
+                msg: "密码错误"
             }
-
-            return { err: 1 }
         },
-
+        
         logout(token) {
-            return successResp({token})
+            return successResp({ token })
         }
     }
 }

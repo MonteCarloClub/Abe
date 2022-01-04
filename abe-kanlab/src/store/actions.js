@@ -1,5 +1,5 @@
 import { mutations, getters } from "./store";
-import { login, getInfo, logout } from "../api/user"
+import { login, logout } from "../api/user"
 import { setToken, removeToken } from '../utils/cookie'
 
 // 与全局状态（store/state）有关的业务接口，即会改变全局状态的操作
@@ -8,9 +8,9 @@ export const actions = {
     login(userInfo) {
         const { name, password } = userInfo
         return new Promise((resolve, reject) => {
-            login({ name, password }).then(response => {
-                const { data } = response
+            login({ name, password }).then(data => {
                 mutations.setToken(data.token)
+                mutations.setUser(data)
                 resolve(data)
             })
             .catch(error => {
@@ -18,20 +18,8 @@ export const actions = {
             })
         })
     },
-    // 获取用户信息
-    getInfo(token) {
-        return new Promise((resolve, reject) => {
-            getInfo(token).then(response => {
-                const { data } = response
-                mutations.setUser(data)
-                resolve(data)
-            }).catch(error => {
-                reject(error)
-            })
-        })
-    },
 
-    // user logout
+    // 退出登录
     logout() {
         return new Promise((resolve, reject) => {
             logout(getters.token()).then(() => {
