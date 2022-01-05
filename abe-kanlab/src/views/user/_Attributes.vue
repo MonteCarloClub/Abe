@@ -21,30 +21,7 @@ export default {
       attributes: [],
     };
   },
-  beforeCreate: function () {
-    console.log("Attributes", "BeforeCreate");
-  },
-  created: function () {
-    console.log("Attributes", "Created");
-  },
-  beforeMount: function () {
-    console.log("Attributes", "BeforeMount");
-  },
-  mounted: function () {
-    console.log("Attributes", "Mounted");
-  },
-  activated: function () {
-    console.log("Attributes", "Activated");
-  },
-  deactivated: function () {
-    console.log("Attributes", "Deactivated");
-  },
-  beforeUpdate: function () {
-    console.log("Attributes", "BeforeUpdate");
-  },
-  updated: function () {
-    console.log("Attributes", "Updated");
-  },
+
   methods: {},
 };
 </script>

@@ -26,24 +26,6 @@ export default {
     ...getters.mapUser(["name", "channel", "role"])
   },
 
-  beforeCreate: function () {
-    console.log("Info", "BeforeCreate");
-  },
-  created: function () {
-    console.log("Info", "Created");
-  },
-  beforeMount: function () {
-    console.log("Info", "BeforeMount");
-  },
-  mounted: function () {
-    console.log("Info", "Mounted");
-  },
-  beforeUpdate: function () {
-    console.log("Info", "BeforeUpdate");
-  },
-  updated: function () {
-    console.log("Info", "Updated");
-  },
   methods: {},
 };
 </script>

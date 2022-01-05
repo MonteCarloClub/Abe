@@ -8,7 +8,10 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      headerClass: "transparent-header" // 主页的导航栏透明
+    }
   },
   {
     path: '/login',

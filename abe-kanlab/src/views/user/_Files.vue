@@ -21,24 +21,7 @@ export default {
       files: [],
     };
   },
-  beforeCreate: function () {
-    console.log("Files", "BeforeCreate");
-  },
-  created: function () {
-    console.log("Files", "Created");
-  },
-  beforeMount: function () {
-    console.log("Files", "BeforeMount");
-  },
-  mounted: function () {
-    console.log("Files", "Mounted");
-  },
-  beforeUpdate: function () {
-    console.log("Files", "BeforeUpdate");
-  },
-  updated: function () {
-    console.log("Files", "Updated");
-  },
+  
   methods: {},
 };
 </script>

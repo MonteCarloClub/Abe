@@ -18,7 +18,6 @@ export default {
 </script>
 
 <style scoped>
-
 .card {
   padding: var(--content-padding, 16px);
   background: #fff;

@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie'
+import * as Cookies from "./cookies"
 
 const TOKEN_KEY = 'Admin-Token'
 
@@ -18,7 +18,10 @@ export function getToken() {
 }
 
 export function setToken(token) {
-    return Cookies.set(TOKEN_KEY, token)
+    return Cookies.set(TOKEN_KEY, token, { 
+        secure: true, 
+        "max-age": 3600 // 登录有效期，单位（秒）
+    })
 }
 
 export function removeToken() {

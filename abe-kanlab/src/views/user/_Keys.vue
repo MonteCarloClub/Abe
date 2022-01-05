@@ -21,24 +21,7 @@ export default {
       keys: [],
     };
   },
-  beforeCreate: function () {
-    console.log("Keys", "BeforeCreate");
-  },
-  created: function () {
-    console.log("Keys", "Created");
-  },
-  beforeMount: function () {
-    console.log("Keys", "BeforeMount");
-  },
-  mounted: function () {
-    console.log("Keys", "Mounted");
-  },
-  beforeUpdate: function () {
-    console.log("Keys", "BeforeUpdate");
-  },
-  updated: function () {
-    console.log("Keys", "Updated");
-  },
+  
   methods: {},
 };
 </script>
