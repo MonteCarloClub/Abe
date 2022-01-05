@@ -1,27 +1,35 @@
 <template>
   <div class="main-content">
-    <div class="grid-rows main-col">
-      <Files />
+    <div class="">
+      <transition-group
+        class="grid-rows main-col"
+        tag="div"
+        v-on:before-enter="beforeEnter"
+        v-on:enter="animEnter"
+        appear
+      >
+        <Info key="-1" data-index="-1"/>
+        <Files key="0" data-index="0" />
+      </transition-group>
     </div>
-    <transition-group class="grid-rows" tag="div" name="list" v-on:enter="animEnter" appear>
-      <!-- <Attributes key="1" data-index="1" />
-      <Keys key="2" data-index="2" /> -->
-      <component
-        v-bind:css="false"
-        v-for="(comp, index) in componentList"
-        v-bind:is="comp"
-        v-bind:key="comp"
-        v-bind:data-index="index"
-      ></component>
+    <transition-group
+      class="grid-rows"
+      tag="div"
+      v-on:before-enter="beforeEnter"
+      v-on:enter="animEnter"
+      appear
+    >
+      <Attributes key="1" data-index="1" />
+      <Keys key="2" data-index="2" />
     </transition-group>
   </div>
 </template>
 
 <script>
 import Keys from "./_Keys.vue";
+import Info from "./_Info.vue";
 import Files from "./_Files.vue";
 import Attributes from "./_Attributes.vue";
-import Velocity from "velocity-animate";
 
 export default {
   name: "User",
@@ -29,17 +37,23 @@ export default {
     Attributes,
     Files,
     Keys,
+    Info,
   },
   data() {
-    return {
-      componentList: ["Attributes", "Keys"],
-    };
+    return {};
   },
   methods: {
+    beforeEnter: function (el) {
+      if (el.dataset.index > -1) {
+        el.style.opacity = 0;
+        el.style.transform = "translateY(30px)";
+      }
+    },
     animEnter: function (el, done) {
       var delay = el.dataset.index * 250;
       setTimeout(function () {
-        Velocity(el, { opacity: 1 }, { complete: done });
+        el.style = ""; // 清空初始的偏移样式
+        done();
       }, delay);
     },
   },
@@ -53,18 +67,13 @@ export default {
   grid-gap: var(--row-distance, 10px);
 }
 
+.grid-rows > div {
+  transition: all 0.5s;
+}
+
 .main-col {
   width: 70%;
   float: left;
   margin-right: var(--row-distance, 10px);
-}
-
-.list-enter-active {
-  transition: all 0.5s;
-}
-
-.list-enter {
-  opacity: 0;
-  transform: translateY(30px);
 }
 </style>

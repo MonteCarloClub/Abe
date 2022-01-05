@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import { getters } from "./store/store";
-import { actions } from "./store/actions";
+import { getters } from "@/store/store";
+import { actions } from "@/store/actions";
 
 export default {
   name: "App",
