@@ -2,7 +2,7 @@
   <div class="home">
     <!-- 用来装逼的小节 -->
     <section class="grid-cols-2">
-      <div>
+      <div class="animated-background">
         <div class="left-intro">
           <h1>数据共享交换</h1>
         </div>
@@ -22,7 +22,7 @@
     <!-- 小节内容 -->
     <section class="section">
       <div class="section-title">属性管理</div>
-      <div class="flex-cols">
+      <div class="flex-cols" style="padding-bottom: 48px">
         <div v-for="(attr, index) in attrs" :key="index" class="flex-entry">
           <div class="entry-title">{{ attr.title }}</div>
           <div class="entry-desc">{{ attr.desc }}</div>
@@ -111,7 +111,7 @@ export default {
       } else {
         document.querySelector(".el-header").classList.add(c);
       }
-    }, 500),
+    }, 300),
   },
   created() {
     // 创建该组件时，监听滚动函数
@@ -163,6 +163,10 @@ export default {
   position: relative;
 }
 
+.img-box img {
+  height: 100%;
+}
+
 .img-box:after {
   position: absolute;
   width: 100%;
@@ -175,11 +179,11 @@ export default {
 }
 
 section:nth-child(even) {
-  background: var(--body-background, #f1f1f2);
+  background-color: var(--body-background, #f1f1f2);
 }
 
 section:nth-child(odd) {
-  background: white;
+  background-color: white;
 }
 
 .section {
@@ -211,7 +215,7 @@ section:nth-child(odd) {
 
 .list-entry {
   display: grid;
-  margin: 16px 0;
+  margin: 32px 0;
   grid-template-columns: 80px auto;
   grid-template-areas:
     "l t"
@@ -270,12 +274,46 @@ section:nth-child(odd) {
 }
 
 .image-box {
-  height: 300px;
+  height: 360px;
+  width: 480px;
   justify-self: end;
+  position: relative;
+}
+
+.image-box::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: white;
+  transform: rotateZ(3deg);
+  box-shadow: 8px 8px 20px 0 rgb(85 85 85 / 10%), -8px -8px 20px 0 #fff;
 }
 
 .image-box img {
-  max-width: 100%;
-  max-height: 100%;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  max-width: calc(100% - 10px);
+  max-height: calc(100% - 10px);
+}
+
+/* Animations */
+@keyframes bg-scrolling-reverse {
+  100% {
+    background-position: 0 50px;
+  }
+}
+
+/* Main styles */
+.animated-background {
+  /* img size is 50x50 */
+  /* Background data (Original source: https://subtlepatterns.com/grid-me/) */
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC")
+    repeat 0 0;
+  animation: bg-scrolling-reverse 0.92s infinite; /* IE 10+ */
+  animation-timing-function: linear;
 }
 </style>

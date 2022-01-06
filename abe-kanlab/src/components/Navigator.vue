@@ -9,8 +9,12 @@
       </el-menu> -->
     </div>
     <div class="options">
-      <router-link v-if="login" to="/user"> {{ userName }} </router-link>
-      <router-link v-else to="/login"> 登录/注册 </router-link>
+      <router-link v-if="login" to="/user">
+        <button>{{ userName }}</button>
+      </router-link>
+      <router-link v-else to="/login">
+        <button class="login-button">登录 / 注册</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -54,7 +58,10 @@ a {
   text-decoration: none;
 }
 
-a, a:visited, a:hover, a:active {
+a,
+a:visited,
+a:hover,
+a:active {
   color: inherit;
 }
 
@@ -76,9 +83,34 @@ a, a:visited, a:hover, a:active {
   background-color: transparent !important;
 }
 
-.el-collapse-item__header {
-  font-size: 20px !important;
-  font-weight: bold !important;
-  line-height: 50px !important;
+button {
+  color: #767676;
+  border: none;
+  height: 32px;
+  font-size: 14px;
+  padding: 0 11px;
+  line-height: 30px;
+  border-radius: 4px;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.1s ease-in-out;
+  -webkit-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+button:hover {
+  color: black;
+}
+
+.login-button {
+  border: 1px solid #76767699;
+}
+
+.login-button:hover {
+  border: 1px solid #767676;
 }
 </style>
