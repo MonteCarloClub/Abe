@@ -1,7 +1,7 @@
 <template>
-  <Card title="密钥管理">
+  <Card title="属性审批">
     <div>
-      <div v-if="keys.length"></div>
+      <div v-if="attributes.length"></div>
       <el-empty v-else></el-empty>
     </div>
   </Card>
@@ -12,16 +12,16 @@
 import Card from "@/components/Card.vue";
 
 export default {
-  name: "Keys",
+  name: "Approvals",
   components: {
     Card,
   },
   data() {
     return {
-      keys: [],
+      attributes: [],
     };
   },
-  
+
   methods: {},
 };
 </script>

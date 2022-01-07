@@ -1,8 +1,8 @@
 <template>
-  <Card title="我的文件">
+  <Card title="我的属性">
     <div>
-      <div v-if="files.length"></div>
-      <el-empty v-else description="暂无"></el-empty>
+      <div v-if="attributes.length"></div>
+      <el-empty v-else></el-empty>
     </div>
   </Card>
 </template>
@@ -12,16 +12,16 @@
 import Card from "@/components/Card.vue";
 
 export default {
-  name: "Files",
+  name: "Mine",
   components: {
     Card,
   },
   data() {
     return {
-      files: [],
+      attributes: [],
     };
   },
-  
+
   methods: {},
 };
 </script>

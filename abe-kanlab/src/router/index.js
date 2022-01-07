@@ -27,6 +27,19 @@ const routes = [
     path: '/user',
     name: 'user',
     component: () => import('../views/user/User.vue'),
+    // rendered inside User's <router-view>
+    children: [
+      {
+        path: '',
+        name: 'files',
+        component: () => import('../views/user/files/Files.vue'),
+      },
+      {
+        path: 'attributes',
+        name: 'attributes',
+        component: () => import('../views/user/attributes/Attributes.vue'),
+      }
+    ]
   },
   {
     path: '/organization',

@@ -2,41 +2,28 @@
   <div class="main-content">
     <div class="">
       <transition-group
-        class="grid-rows main-col"
+        class="grid-rows nav-col"
         tag="div"
         v-on:before-enter="beforeEnter"
         v-on:enter="animEnter"
         appear
       >
-        <Info key="-1" data-index="-1"/>
-        <Files key="0" data-index="0" />
+        <Info key="-1" data-index="0" />
+        <Nav key="2" data-index="1.5" />
       </transition-group>
     </div>
-    <transition-group
-      class="grid-rows"
-      tag="div"
-      v-on:before-enter="beforeEnter"
-      v-on:enter="animEnter"
-      appear
-    >
-      <Attributes key="1" data-index="1" />
-      <Keys key="2" data-index="2" />
-    </transition-group>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Keys from "./_Keys.vue";
+import Nav from "./_Nav.vue";
 import Info from "./_Info.vue";
-import Files from "./_Files.vue";
-import Attributes from "./_Attributes.vue";
 
 export default {
   name: "User",
   components: {
-    Attributes,
-    Files,
-    Keys,
+    Nav,
     Info,
   },
   data() {
@@ -71,8 +58,8 @@ export default {
   transition: all 0.5s;
 }
 
-.main-col {
-  width: 70%;
+.nav-col {
+  width: 300px;
   float: left;
   margin-right: var(--row-distance, 10px);
 }
