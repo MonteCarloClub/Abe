@@ -21,7 +21,6 @@
 
 <script>
 import { getters } from "@/store/store";
-import { actions } from "@/store/actions";
 import Logo from "@/components/Logo.vue";
 
 export default {
@@ -34,15 +33,6 @@ export default {
   },
 
   methods: {
-    logoutClicked() {
-      actions.logout().then(() => {
-        this.$message({
-          message: "退出登录",
-          type: "success",
-        });
-        location.reload();
-      });
-    },
   },
 };
 </script>

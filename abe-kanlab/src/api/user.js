@@ -77,22 +77,22 @@ export const userApi = {
                 data
             }).then(response => {
                 // {
-                //     "code":200   200，成功；其他，失败
-                //     "msg" :null  描述
-                //     "data": {
-                //         "appliedAttrMap":{ },
-                //         "privacyAttrMap":{},
-                //         "APKMap":{},
-                //         "ASKMap":{},
-                //         "EGGAlpha":"[206605..., 320061...]",
-                //         "Alpha":"907358...",
-                //         "GAlpha":"[569334..., 105875...]",
-                //         "Name":"someone",
-                //         "OPKMap":{},
-                //         "OSKMap":{ },
-                //         "Password":"202cb962ac59075b964b07152d234b70",
-                //         "UserType":"org",
-                //         "Channel":"myc"
+                //    "code":200   200，成功；其他，失败
+                //    "msg" :null  描述
+                //    "data": {
+                //         "appliedAttrMap":{},                  用户已申请的属性集合
+                //         "privacyAttrMap":{},                  隐私属性集，暂时不用
+                //         "APKMap":{},                          用户自身的属性公钥集合
+                //         "ASKMap":{},                          用户自身的属性私钥集合
+                //         "EGGAlpha":"[206605..., 320061...]",  属性密码相关参数-用户公钥
+                //         "Alpha":"907358...",                  属性密码相关参数-用户私钥
+                //         "GAlpha":"[569334..., 105875...]",    属性密码相关参数（这些应该不用显示）
+                //         "Name":"someone",                     用户名
+                //         "OPKMap":{},                          由多个用户组成的组织公钥集合，可遍历该集合获取用户所在组织列表
+                //         "OSKMap":{},                          由多个用户组成的组织私钥集合
+                //         "Password":"202cb962ac59075b96..",    用户密码 hash
+                //         "UserType":"org",                     用户类型
+                //         "Channel":"myc"                       用户所在通道
                 //     }
                 // }
                 if (response.code === 200) {

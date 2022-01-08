@@ -43,9 +43,21 @@ function mockUsers() {
 
             // 登录成功，返回用户信息
             if (user.password === password) {
+                user.password += "-hash"
                 return successResp({
-                    token: `${user.name}-${user.password}`,
-                    ...user
+                    ...user,
+                    "appliedAttrMap": {
+                        "someone:family": "[159429..., 572246...]",
+                        "someone:friend": "[114119..., 477210...]",
+                    },
+                    "privacyAttrMap": {},
+                    "APKMap": {},
+                    "ASKMap": {},
+                    "EGGAlpha": "[206605, 320061]",
+                    "Alpha": "907358",
+                    "GAlpha": "[569334, 105875]",
+                    "OPKMap": {},
+                    "OSKMap": {},
                 })
             }
             // 密码错误

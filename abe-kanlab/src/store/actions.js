@@ -16,7 +16,7 @@ export const actions = {
             userApi.login({ name, password })
                 .then(user => {
                     devLog(user)
-                    setToken(user.token)
+                    setToken(`${name}-${password}`)
                     mutations.setUser(user)
                     resolve(user)
                 })

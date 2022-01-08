@@ -31,13 +31,13 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'files',
-        component: () => import('../views/user/files/Files.vue'),
-      },
-      {
-        path: 'attributes',
         name: 'attributes',
         component: () => import('../views/user/attributes/Attributes.vue'),
+      },
+      {
+        path: 'files',
+        name: 'files',
+        component: () => import('../views/user/files/Files.vue'),
       }
     ]
   },

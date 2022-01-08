@@ -150,7 +150,7 @@ export default {
       formData.append('file', this.file)
       formData.append('rules', this.fileLegancy)
       const res = await uploadFile(formData)
-      console.log('res', res)
+      
       if (res) {
         Message({
           message: '上传成功',

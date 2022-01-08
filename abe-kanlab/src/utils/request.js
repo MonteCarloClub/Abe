@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { devLog } from "./log";
 // https://axios-http.com/zh/docs/interceptors
 
 // create an axios instance
@@ -15,11 +16,14 @@ service.interceptors.request.use(
     config => {
         // config contains all options for a request
         // modify config before send this request
+        const { url, data, headers, method } = config
+        devLog({ url, data, headers, method })
+        console.log(config);
         return config
     },
     error => {
         // do something with request error
-        console.log('[request error]', error)
+        devLog('[request error]', error)
         return Promise.reject(error)
     }
 )

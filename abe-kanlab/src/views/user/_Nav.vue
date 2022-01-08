@@ -22,13 +22,13 @@ export default {
       navs: [
         {
           to: "/user",
-          name: "files",
-          title: "文件",
-        },
-        {
-          to: "/user/attributes",
           name: "attributes",
           title: "属性",
+        },
+        {
+          to: "/user/files",
+          name: "files",
+          title: "文件",
         },
       ],
     };

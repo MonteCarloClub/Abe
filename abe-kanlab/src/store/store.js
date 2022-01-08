@@ -13,7 +13,13 @@ export const getters = {
         const computed = {}
         properties.forEach(prop => computed[prop] = () => state.user[prop])
         return computed
-    }
+    },
+    // 根据传入的属性列表，返回这组属性值
+    properties: (props = []) => {
+        const values = {}
+        props.forEach(prop => values[prop] = state.user[prop])
+        return values
+    },
 }
 
 // 暴露给外部用于修改全局状态的接口

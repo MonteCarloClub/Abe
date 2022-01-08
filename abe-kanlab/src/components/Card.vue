@@ -1,6 +1,11 @@
 <template>
   <div class="card">
-    <div class="card-head" v-if="title">{{ title }}</div>
+    <div class="card-head" v-if="title">
+      {{ title }}
+      <div style="float: right">
+        <slot name="op"> </slot>
+      </div>
+    </div>
     <slot></slot>
   </div>
 </template>

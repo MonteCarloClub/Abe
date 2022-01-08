@@ -6,9 +6,9 @@
     v-on:enter="animEnter"
     appear
   >
-    <Mine key="0" data-index="0.2"/>
-    <Approvals key="1" data-index="0.5"/>
-    <Applications key="2" data-index="0"/>
+    <Mine key="0" data-index="0"/>
+    <Approvals key="1" data-index="0.3"/>
+    <Applications key="2" data-index="0.6"/>
   </transition-group>
 </template>
 
