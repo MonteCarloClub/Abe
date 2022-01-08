@@ -6,8 +6,8 @@
     v-on:enter="animEnter"
     appear
   >
-    <Mine   key="0" data-index="0" />
-    <Upload key="1" data-index="0.5" />
+    <Mine   key="0" data-index="0.3" />
+    <Upload key="1" data-index="0" />
   </transition-group>
 </template>
 
@@ -24,9 +24,8 @@ export default {
   },
   methods: {
     beforeEnter: function (el) {
-      console.log("beforeEnter");
       if (el.dataset.index > -1) {
-        console.log("index > -1");
+        el.style.opacity = 0.5;
         el.style.transform = "translateX(30px)";
       }
     },

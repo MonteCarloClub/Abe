@@ -1,9 +1,6 @@
 <template>
   <Card title="属性申请">
-    <div>
-      <div v-if="attributes.length"></div>
-      <el-empty v-else></el-empty>
-    </div>
+    
   </Card>
 </template>
 
@@ -25,3 +22,7 @@ export default {
   methods: {},
 };
 </script>
+
+<style scoped>
+
+</style>

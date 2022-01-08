@@ -27,9 +27,9 @@ export default {
   data() {
     return {
       files: [
-        { title: "加密", icon: "encryption.svg", desc: "加密共享文件" },
-        { title: "解密", icon: "decrypt.svg",    desc: "解密共享文件" },
-        { title: "查询", icon: "query.svg",      desc: "查询共享文件" },
+        { title: "加密", icon: "encrypt.svg", desc: "加密共享文件" },
+        { title: "解密", icon: "decrypt.svg", desc: "解密共享文件" },
+        { title: "查询", icon: "query.svg",   desc: "查询共享文件" },
       ],
     };
   },
@@ -79,7 +79,7 @@ export default {
 .list-entry {
   display: grid;
   margin: 32px 0;
-  grid-template-columns: 80px auto;
+  grid-template-columns: 100px auto;
   grid-template-areas:
     "l t"
     "l b";
@@ -92,7 +92,7 @@ export default {
 
 .list-entry > img {
   grid-area: l;
-  width: 70px;
+  padding: 0 10px;
   height: 70px;
   /* https://stackoverflow.com/questions/14387690/how-can-i-show-only-corner-borders */
   background: linear-gradient(to right, black 2px, transparent 2px) 0 0,

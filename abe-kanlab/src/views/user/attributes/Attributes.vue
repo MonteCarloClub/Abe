@@ -6,7 +6,7 @@
     v-on:enter="animEnter"
     appear
   >
-    <Mine key="0" data-index="0.7"/>
+    <Mine key="0" data-index="0.2"/>
     <Approvals key="1" data-index="0.5"/>
     <Applications key="2" data-index="0"/>
   </transition-group>
@@ -34,13 +34,15 @@ export default {
   methods: {
     beforeEnter: function (el) {
       if (el.dataset.index > -1) {
+        el.style.opacity = 0.5;
         el.style.transform = "translateX(30px)";
       }
     },
     animEnter: function (el, done) {
       var delay = el.dataset.index * 250;
       setTimeout(function () {
-        el.style = ""; // 清空初始的偏移样式
+        // 清空初始样式
+        el.style = "";
         done();
       }, delay);
     },

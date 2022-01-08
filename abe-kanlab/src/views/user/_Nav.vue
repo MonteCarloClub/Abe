@@ -34,16 +34,10 @@ export default {
     };
   },
 
-  watch: {
-    $route(to) {
-      console.log(to.name);
-    },
-  },
-
   methods: {},
 
   mounted() {
-    console.log(this.$route.name);
+    // console.log(this.$route.name);
   },
 };
 </script>

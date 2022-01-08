@@ -46,4 +46,9 @@ export default {
   text-align: center;
 }
 
+.grid-entry img {
+  height: 81px;
+  margin: 16px;
+}
+
 </style>
