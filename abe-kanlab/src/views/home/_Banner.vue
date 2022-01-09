@@ -21,17 +21,16 @@
       <div>
         <h1>数据共享交换</h1>
       </div>
-      <div class="options">
-        <router-link to="/signup">
-          <el-button type="primary">去注册</el-button>
-        </router-link>
-      </div>
+      <router-link to="/signup">
+        <div class="wrap">
+          <button class="button" type="primary">去注册</button>
+        </div>
+      </router-link>
     </div>
   </section>
 </template>
 
 <script>
-
 export default {
   name: "Banner",
   methods: {},
@@ -51,11 +50,17 @@ export default {
 }
 
 .intro {
+  text-align: center;
   z-index: 10;
-  margin: 0 auto;
+  left: 50%;
+  width: 500px;
   position: absolute;
-  left: var(--body-margin, 32px);
-  top: var(--header-height, 16px);
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+a {
+  text-decoration: none;
 }
 
 .intro h1 {
@@ -63,8 +68,89 @@ export default {
   font-size: 3.625rem;
 }
 
-.options {
-  padding-top: 50px;
+.wrap {
+  padding-top: 30px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  min-width: 300px;
+  min-height: 60px;
+  font-family: "Nunito", sans-serif;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  font-weight: 700;
+  color: #313133;
+  background: linear-gradient(60deg, rgba(129, 206, 230, 0.61) 0%, rgb(79, 151, 209) 100%);
+  border: none;
+  border-radius: 1000px;
+  box-shadow: 12px 12px 24px rgba(79, 157, 209, 0.64);
+  transition: all 0.3s ease-in-out 0s;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  padding: 10px;
+}
+
+button::before {
+  content: "";
+  border-radius: 1000px;
+  min-width: 300px;
+  min-height: 60px;
+  box-shadow: 0 0 60px rgba(0, 183, 255, 0.64);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.button:hover,
+.button:focus {
+  color: #313133;
+}
+
+button:hover::before,
+button:focus::before {
+  opacity: 1;
+}
+
+button::after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 6px solid #45ccf5;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ring 1.5s infinite;
+}
+
+button:hover::after,
+button:focus::after {
+  animation: none;
+  display: none;
+}
+
+@keyframes ring {
+  0% {
+    width: 30px;
+    height: 30px;
+    opacity: 1;
+  }
+  100% {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
 }
 
 .background-image {

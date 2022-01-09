@@ -1,8 +1,11 @@
 <template>
   <div>
-    <Card title="我的组织">
+    <Card title="属性申请">
       <template v-slot:op>
-        <el-button size="small" slot="append" @click="createOrg"> 创建组织 </el-button>
+        <el-button size="small" slot="append" @click="syncApplications"> 同步属性 </el-button>
+        <el-button size="small" slot="append" type="primary" @click="dialogFormVisible = true">
+          申请属性
+        </el-button>
       </template>
       <div v-if="appliedAttrMap">
         <el-table :data="formatAttributes(appliedAttrMap)" stripe style="width: 100%">
@@ -59,7 +62,7 @@ import { getters } from "@/store/store";
 import { actions } from "@/store/actions";
 
 export default {
-  name: "Mine",
+  name: "Applications",
   components: {
     Card,
   },

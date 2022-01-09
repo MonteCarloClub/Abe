@@ -40,7 +40,7 @@ const routes = [
         component: () => import('../views/user/files/Files.vue'),
       },
       {
-        path: '/organization',
+        path: 'organization',
         name: 'organization',
         component: () => import('../views/user/organization/Organization.vue'),
       },
