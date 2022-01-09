@@ -66,3 +66,11 @@ export default {
   margin-right: var(--row-distance, 10px);
 }
 </style>
+
+
+<style>
+/* shared by child components */
+.el-table .cell {
+  white-space: nowrap !important;
+}
+</style>

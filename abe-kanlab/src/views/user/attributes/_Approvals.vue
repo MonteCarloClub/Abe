@@ -3,10 +3,20 @@
     <Card title="属性审批">
       <div v-if="attributes.length">
         <el-table :data="attributes" stripe style="width: 100%">
-          <el-table-column prop="attr" label="属性名" width="120"> </el-table-column>
-          <el-table-column prop="user" label="申请人" width="180"> </el-table-column>
+          <el-table-column prop="isPublic" label="" width="50">
+            <template slot-scope="scope">
+              {{ scope.row.isPublic ? "公开" : "私有" }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="status" label="类型" width="100">
+            <template slot-scope="scope">
+              {{ scope.row.applyType }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="attrName" label="属性名" width="120"> </el-table-column>
+          <el-table-column prop="fromUid" label="申请人" width="180"> </el-table-column>
           <el-table-column prop="remark" label="申请备注"> </el-table-column>
-          <el-table-column prop="date" label="申请日期" width="120"> </el-table-column>
+
           <el-table-column label="操作" width="160">
             <template slot-scope="scope">
               <el-button size="mini" type="success" @click="agree(scope.row, true)">
@@ -15,6 +25,14 @@
               <el-button size="mini" type="danger" @click="agree(scope.row, false)">
                 拒绝
               </el-button>
+            </template>
+          </el-table-column>
+
+          <el-table-column prop="status" label="状态" width="100" align="right">
+            <template slot-scope="scope">
+              <el-tag :type="statusTypes[scope.row.status]" size="small">
+                {{ scope.row.status }}
+              </el-tag>
             </template>
           </el-table-column>
         </el-table>
@@ -46,42 +64,66 @@ export default {
   components: {
     Card,
   },
+
+  mounted() {
+    const to = getters.userName();
+    const status = "ALL";
+    let res = [];
+
+    Promise.all([0, 1].map((role) => attrApi.applications({ to, role, status })))
+      .then((responses) => {
+        responses.forEach((response) => {
+          res = res.concat(response);
+        });
+        this.attributes = res;
+      })
+      .catch(console.log);
+  },
+
   data() {
     return {
-      attributes: [
-        {
-          date: "2016-05-02",
-          attr: "属性",
-          remark: "上海市普陀区金沙江路 1518 弄",
-          user: "小明",
-        },
-        {
-          date: "2016-05-04",
-          attr: "属性",
-          remark: "上海市普陀区金沙江路 1517 弄",
-          user: "小明",
-        },
-      ],
+      attributes: [],
       form: {
         remark: "",
       },
       params: {},
       dialogFormVisible: false,
+
+      statusTypes: {
+        SUCCESS: "success",
+        FAIL: "danger",
+        PENDING: "info",
+      },
     };
   },
 
   methods: {
     agree(application, agree) {
       const to = getters.userName();
-      const { attr, user } = application;
-      this.params = { to, agree, attr, user };
+      const { attrName, fromUid } = application;
+      this.params = { to: fromUid, agree, attr: attrName, user: to };
       this.dialogFormVisible = true;
     },
     approval() {
-      attrApi.approval({ ...this.params, ...this.form }).then((_) => {
-        console.log(_);
-        this.dialogFormVisible = false;
-      });
+      attrApi
+        .approval({ ...this.params, ...this.form })
+        .then(() => {
+          this.$message({
+            message: "审批成功",
+            duration: 2 * 1000,
+            type: "success",
+          });
+        })
+        .catch((e) => {
+          this.$message({
+            message: e.message,
+            duration: 2 * 1000,
+            type: "error",
+          });
+        })
+        .finally(() => {
+          this.dialogFormVisible = false;
+        });
     },
   },
 };

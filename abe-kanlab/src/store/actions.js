@@ -1,5 +1,6 @@
-import { mutations } from "./store";
+import { getters, mutations } from "./store";
 import { userApi } from "../api/user"
+import { attrApi } from "@/api/attributes";
 import { setToken, removeToken, getToken } from '../utils/token'
 import { devLog } from "../utils/log";
 
@@ -15,7 +16,6 @@ export const actions = {
         return new Promise((resolve, reject) => {
             userApi.login({ name, password })
                 .then(user => {
-                    devLog(user)
                     setToken(`${name}-${password}`)
                     mutations.setUser(user)
                     resolve(user)
@@ -44,6 +44,45 @@ export const actions = {
             removeToken()
             // resetRouter()
             resolve()
+        })
+    },
+
+    /**
+     * 生成用户新属性
+     * @param {*} _data 来自前端的参数，dabeGenerate -> platGenerate
+     * @returns Promise
+     */
+    generate: function ({ name, attr }) {
+        const _data = { name, attr }
+        let tempUser;
+        return new Promise((resolve, reject) => {
+            attrApi.dabeGenerate(_data)
+                .then(user => {
+                    tempUser = user
+                    return attrApi.platGenerate(_data)
+                })
+                .then((resp) => {
+                    mutations.setUser(tempUser)
+                    resolve(resp)
+                })
+                .catch(reject)
+        })
+    },
+
+    /**
+     * 同步属性
+     * @param {*} _data 参数
+     * @returns Promise
+     */
+    sync: function () {
+        return new Promise((resolve, reject) => {
+            attrApi
+                .sync(getters.userName())
+                .then((user) => {
+                    mutations.setUser(user)
+                    resolve(user)
+                })
+                .catch(reject);
         })
     },
 }

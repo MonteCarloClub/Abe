@@ -2,38 +2,46 @@
   <div>
     <Card title="属性申请">
       <template v-slot:op>
-        <el-button size="small" slot="append" @click="dialogFormVisible = true">
+        <el-button size="small" slot="append" @click="syncApplications"> 同步属性 </el-button>
+        <el-button size="small" slot="append" type="primary" @click="dialogFormVisible = true">
           申请属性
         </el-button>
       </template>
-      <div v-if="attributes.length">
-        <el-table :data="attributes" stripe style="width: 100%">
-          <el-table-column prop="name" label="属性名" width="140"> </el-table-column>
-          <el-table-column prop="address" label="属性值"> </el-table-column>
-          <el-table-column prop="date" label="申请时间" width="180"> </el-table-column>
-          <el-table-column prop="approvaller" label="审批者" width="180"> </el-table-column>
-          <el-table-column prop="status" label="状态" width="100">
+      <div v-if="appliedAttrMap">
+        <el-table :data="formatAttributes(appliedAttrMap)" stripe style="width: 100%">
+        <el-table-column prop="name" label="属性名" width="180"> </el-table-column>
+        <el-table-column prop="value" label="属性公钥"> </el-table-column>
+          <!-- <el-table-column prop="status" label="状态" width="100" align="right">
             <template slot-scope="scope">
               <el-tag :type="statusTypes[scope.row.status]">
                 {{ scope.row.status }}
               </el-tag>
             </template>
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
       </div>
       <el-empty v-else :image-size="100" description="没有正在申请的属性"></el-empty>
     </Card>
+
     <el-dialog title="申请属性" :visible.sync="dialogFormVisible">
       <el-form ref="applyForm" :rules="applyRules" :model="form" label-width="80px">
         <el-form-item prop="attr" label="属性名">
           <el-input v-model="form.attr"></el-input>
         </el-form-item>
-        <el-form-item label="所属用户">
-          <el-input v-model="form.to"></el-input>
+
+        <el-form-item label="属性类型">
+          <el-input
+            placeholder="请输入用户或组织名"
+            v-model="form.belongs"
+            class="input-with-select"
+          >
+            <el-select v-model="form.role" slot="prepend" placeholder="请选择">
+              <el-option label="用户属性" value="to"></el-option>
+              <el-option label="组织属性" value="org"></el-option>
+            </el-select>
+          </el-input>
         </el-form-item>
-        <el-form-item label="所属组织">
-          <el-input v-model="form.org"></el-input>
-        </el-form-item>
+
         <el-form-item label="备注">
           <el-input type="textarea" v-model="form.remark"></el-input>
         </el-form-item>
@@ -51,12 +59,22 @@
 import Card from "@/components/Card.vue";
 import { attrApi } from "@/api/attributes";
 import { getters } from "@/store/store";
+import { actions } from "@/store/actions";
 
 export default {
   name: "Applications",
   components: {
     Card,
   },
+
+  computed: {
+    ...getters.mapUser(["appliedAttrMap"]),
+  },
+
+  mounted() {
+    // console.log(getters.properties(["appliedAttrMap"]));
+  },
+
   data() {
     return {
       attributes: [
@@ -92,6 +110,8 @@ export default {
         attr: "",
         to: "",
         org: "",
+        belongs: "",
+        role: "to",
         remark: "",
       },
       applyRules: {
@@ -100,30 +120,85 @@ export default {
     };
   },
 
-  mounted() {},
-
   methods: {
+    formatAttributes(attrMap) {
+      let attributes = [];
+      for (let key of Object.keys(attrMap)) {
+        attributes.push({
+          name: key,
+          value: attrMap[key],
+        });
+      }
+      return attributes;
+    },
+
     applyForAttr() {
       const { name } = getters.properties(["name"]);
       if (!name) return;
 
       this.$refs.applyForm.validate((valid) => {
         if (!valid) return;
-        
+        let emm = {
+          to: "",
+          org: "",
+        };
+
+        const { remark, role, belongs } = this.form;
+        emm[role] = belongs;
+        const attr = `${belongs}:${this.form.attr}`;
+
         attrApi
           .apply({
-            ...this.form,
+            attr,
             name,
+            remark,
+            ...emm,
           })
-          .then((_) => {
+          .then(() => {
+            this.$message({
+              message: "申请成功",
+              duration: 2 * 1000,
+              type: "success",
+            });
+          })
+          .catch((e) => {
+            this.$message({
+              message: e.message,
+              type: "error",
+            });
+          })
+          .finally(() => {
             this.dialogFormVisible = false;
-            console.log(_);
           });
       });
+    },
+
+    syncApplications() {
+      actions
+        .sync()
+        .then(() => {
+          this.$message({
+            message: "同步成功",
+            duration: 2 * 1000,
+            type: "success",
+          });
+        })
+        .catch((e) => {
+          this.$message({
+            message: e.message,
+            type: "error",
+          });
+        });
     },
   },
 };
 </script>
 
-<style scoped>
+<style>
+.el-select .el-input {
+  width: 120px;
+}
+.input-with-select .el-input-group__prepend {
+  background-color: #fff;
+}
 </style>

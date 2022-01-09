@@ -70,11 +70,11 @@ export default {
       },
       userRoles: [
         {
-          label: "用户",
+          label: "普通用户",
           name: "user",
         },
         {
-          label: "组织",
+          label: "机构用户",
           name: "org",
         },
       ],

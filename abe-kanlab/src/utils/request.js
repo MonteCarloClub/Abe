@@ -14,11 +14,13 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
     config => {
-        // config contains all options for a request
-        // modify config before send this request
-        const { url, data, headers, method } = config
-        devLog({ url, data, headers, method })
-        console.log(config);
+        // config contains all options for a request, modify config before send this request
+        // const { url, data, headers, method } = config
+        config.headers['Access-Control-Allow-Origin'] = "localhost:8081"
+        config.headers['Access-Control-Allow-Methods'] = "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+        config.headers['Access-Control-Allow-Headers'] = "Origin, Content-Type, X-Auth-Token"
+        config.crossdomain = true
+        // console.log('[interceptors.request]', config);
         return config
     },
     error => {
@@ -41,10 +43,6 @@ service.interceptors.response.use(
             // if the custom code is not 200, it is judged as an error.
             return Promise.reject(new Error(res.message || 'Error'))
         } else {
-            /**
-             * If you want to get http information such as headers or status
-             * Please return  response => response
-            **/
             return res
         }
     },

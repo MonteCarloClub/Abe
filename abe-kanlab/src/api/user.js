@@ -74,7 +74,8 @@ export const userApi = {
             request({
                 url: '/dabe/user2',
                 method: 'post',
-                data
+                data,
+                params: data
             }).then(response => {
                 // {
                 //    "code":200   200，成功；其他，失败
@@ -95,33 +96,10 @@ export const userApi = {
                 //         "Channel":"myc"                       用户所在通道
                 //     }
                 // }
-                if (response.code === 200) {
-                    const {data} = response
-                    // 做一个字段转换
-                    resolve({
-                        name    : data.Name,
-                        password: data.Password,
-                        role    : data.UserType,
-                        channel : data.Channel,
-                        ...data
-                    })
-                }
-                reject(response)
-            }).catch(error => {
-                if (error) {
-                    const resp = localUsers.login(data)
-                    if (resp.err === 0) {
-                        resolve(resp.data)
-                    }
-                    else {
-                        Message({
-                            message: resp.msg,
-                            duration: 5 * 1000
-                        })
-                    }
-                }
-                else reject(error)
-            })
+                const { data } = response
+                // 做一个字段转换
+                resolve(data)
+            }).catch(reject)
         })
     }
 }

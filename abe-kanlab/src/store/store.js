@@ -24,7 +24,13 @@ export const getters = {
 
 // 暴露给外部用于修改全局状态的接口
 export const mutations = {
-    setUser: (user) => {
-        state.user = user
+    setUser: (data) => {
+        state.user = {
+            name: data.Name,
+            password: data.Password,
+            role: data.UserType,
+            channel: data.Channel,
+            ...data
+        }
     },
 }

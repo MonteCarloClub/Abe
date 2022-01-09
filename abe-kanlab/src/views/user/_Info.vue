@@ -6,7 +6,7 @@
     <el-descriptions :column="1">
       <el-descriptions-item label="用户名">{{ name }} </el-descriptions-item>
       <el-descriptions-item label="我的角色">
-        {{ role === "user" ? "用户" : "管理员" }}
+        {{ roleTitles[role]}}
       </el-descriptions-item>
       <el-descriptions-item label="所在通道">{{ channel }}</el-descriptions-item>
     </el-descriptions>
@@ -24,6 +24,14 @@ export default {
 
   components: {
     Card,
+  },
+  data() {
+    return {
+      roleTitles: {
+        user: "普通用户",
+        org: "机构用户",
+      },
+    };
   },
 
   computed: {

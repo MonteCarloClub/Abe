@@ -74,7 +74,10 @@ export default {
             this.jumpTo();
           })
           .catch((err) => {
-            console.log(err);
+            this.$message({
+              message: err,
+              type: "error",
+            });
           })
           .finally(() => {
             this.loading = false;

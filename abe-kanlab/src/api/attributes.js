@@ -4,41 +4,24 @@ import { localAttrs } from "../mock/attributes"
 export const attrApi = {
 
     /**
-     * 生成用户新属性
-     * @param {*} _data 来自前端的参数，dabeGenerate -> platGenerate
-     * @returns Promise
-     */
-    generate: function ({ name, password, attr }) {
-        const _data = { name, password, attr }
-        return new Promise((resolve, reject) => {
-            this.dabeGenerate(_data)
-                .then(user => {
-                    console.log(user);
-                    return this.platGenerate(_data)
-                })
-                .then(resolve)
-                .catch(reject)
-        })
-    },
-
-    /**
      * dabe 生成用户新属性
      * @param {*} _data 来自前端的参数，用于发送请求，字段不一定和请求字段一致，需要转换一下
      * @returns Promise
      */
     dabeGenerate: function (_data) {
         // fileName 用户名
-        // password 密码
+        // attrName 
         const data = {
             fileName: _data.name,
-            password: _data.password,
+            attrName: _data.attr,
         }
 
         return new Promise((resolve, reject) => {
             request({
                 url: '/dabe/user/attr',
                 method: 'post',
-                data
+                data,
+                params: data
             }).then(response => {
                 // {
                 //     "code":200   200, 成功; 其他，失败
@@ -96,7 +79,8 @@ export const attrApi = {
             request({
                 url: '/user/attr',
                 method: 'post',
-                data
+                data,
+                params: data
             }).then(response => {
                 // {
                 //     "code":200   200, 成功; 其他，失败
@@ -150,19 +134,14 @@ export const attrApi = {
                 //     "msg":null,  描述
                 //     "data": {}
                 // }
+                // console.log("[api]", response);
                 if (response.code === 200) {
                     resolve(response.data)
                 }
                 else {
                     reject(response)
                 }
-            }).catch(error => {
-                // 调用 Mock 的数据
-                if (error) {
-                    resolve(localAttrs.same(_data))
-                }
-                else reject(error)
-            })
+            }).catch(reject)
         })
     },
 
@@ -171,14 +150,14 @@ export const attrApi = {
      * @param {*} _data 参数
      * @returns Promise
      */
-    applications: function (_data) {
+    applications: function ({to, role, user, status}) {
+        const _data = {to, role, user, status}
         // 以下参数放在 headers 中
         // toId     被申请用户/组织名
         // type     申请类型（用户属性/组织属性） （Int）0 用户；1 组织
         // userName 申请人
         // status   申请状态 ALL / PENDING / SUCCESS / FAIL
-
-        const headers = {
+        const params = {
             toId: _data.to,
             type: _data.role,
             userName: _data.user,
@@ -189,7 +168,7 @@ export const attrApi = {
             request({
                 url: '/user/attr/apply',
                 method: 'get',
-                headers,
+                params,
             }).then(response => {
                 // {
                 //     "code":200   200, 成功; 其他，失败
@@ -233,13 +212,7 @@ export const attrApi = {
                 else {
                     reject(response)
                 }
-            }).catch(error => {
-                // 调用 Mock 的数据
-                if (error) {
-                    console.log(error)
-                }
-                else reject(error)
-            })
+            }).catch(reject)
         })
     },
 
@@ -280,13 +253,7 @@ export const attrApi = {
                 else {
                     reject(response)
                 }
-            }).catch(error => {
-                // 调用 Mock 的数据
-                if (error) {
-                    resolve(localAttrs.same(_data))
-                }
-                else reject(error)
-            })
+            }).catch(reject)
         })
     },
 
@@ -295,11 +262,10 @@ export const attrApi = {
      * @param {*} _data 参数
      * @returns Promise
      */
-    sync: function (_data) {
+    sync: function (user) {
         // fileName    用户名
-
         const data = {
-            fileName: _data.user,
+            fileName: user,
         }
 
         return new Promise((resolve, reject) => {
@@ -307,6 +273,7 @@ export const attrApi = {
                 url: '/user/attr/sync',
                 method: 'post',
                 data,
+                params: data
             }).then(response => {
                 // {
                 //     "code":200   200, 成功; 其他，失败
@@ -336,13 +303,7 @@ export const attrApi = {
                 else {
                     reject(response)
                 }
-            }).catch(error => {
-                // 调用 Mock 的数据
-                if (error) {
-                    console.log(error)
-                }
-                else reject(error)
-            })
+            }).catch(reject)
         })
     },
 }

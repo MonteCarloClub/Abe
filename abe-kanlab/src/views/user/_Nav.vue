@@ -30,6 +30,11 @@ export default {
           name: "files",
           title: "文件",
         },
+        {
+          to: "/user/organization",
+          name: "organization",
+          title: "组织",
+        },
       ],
     };
   },

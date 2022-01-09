@@ -38,13 +38,13 @@ const routes = [
         path: 'files',
         name: 'files',
         component: () => import('../views/user/files/Files.vue'),
-      }
+      },
+      {
+        path: '/organization',
+        name: 'organization',
+        component: () => import('../views/user/organization/Organization.vue'),
+      },
     ]
-  },
-  {
-    path: '/organization',
-    name: 'organization',
-    component: () => import('../views/Organization.vue'),
   },
 ]
 
