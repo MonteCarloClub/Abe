@@ -1,8 +1,8 @@
 <template>
-  <Card >
+  <Card>
     <div>
-      <router-link v-for="(nav, index) in navs" :key="index" :to="nav.to">
-        <div class="tab" v-bind:class="{ current: $route.name === nav.name }">{{ nav.title }}</div>
+      <router-link v-for="(org, index) in orgs" :key="index" :to="`/user/organization/${org}`">
+        <div class="tab" v-bind:class="{ current: $route.params.org === org }">{{ org }}</div>
       </router-link>
     </div>
   </Card>
@@ -11,38 +11,24 @@
 <script>
 // @ is an alias to /src
 import Card from "@/components/Card.vue";
+import { getters } from "@/store/store";
 
 export default {
-  name: "Nav",
+  name: "Orgs",
   components: {
     Card,
   },
   data() {
     return {
-      navs: [
-        {
-          to: "/user",
-          name: "attributes",
-          title: "属性",
-        },
-        {
-          to: "/user/files",
-          name: "files",
-          title: "文件",
-        },
-        {
-          to: "/user/organizations",
-          name: "organizations",
-          title: "组织",
-        },
-      ],
+      orgs: [],
     };
   },
 
   methods: {},
 
   mounted() {
-    // console.log(this.$route.name);
+    const a = getters.properties(["OPKMap"]);
+    this.orgs = Object.keys(a.OPKMap);
   },
 };
 </script>
@@ -70,5 +56,4 @@ a {
   color: black;
   cursor: pointer;
 }
-
 </style>

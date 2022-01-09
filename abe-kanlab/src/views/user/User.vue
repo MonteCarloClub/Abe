@@ -9,7 +9,8 @@
         appear
       >
         <Info key="-1" data-index="0" />
-        <Nav key="2" data-index="1.5" />
+        <Nav key="2" data-index="1" />
+        <Orgs key="3" data-index="1.5" />
       </transition-group>
     </div>
     <keep-alive>
@@ -21,12 +22,14 @@
 <script>
 import Nav from "./_Nav.vue";
 import Info from "./_Info.vue";
+import Orgs from "./_Orgs.vue";
 
 export default {
   name: "User",
   components: {
     Nav,
     Info,
+    Orgs,
   },
   data() {
     return {};

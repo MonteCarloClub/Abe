@@ -10,12 +10,12 @@
         </div>
 
         <el-form ref="signupForm" :model="signup" :rules="signupRules">
-          <el-form-item label="用户名" prop="name">
-            <el-input v-model="signup.name" placeholder="请输入用户名"></el-input>
-          </el-form-item>
-
           <el-form-item label="所在通道" prop="channel">
             <el-input v-model="signup.channel" placeholder="请输入用户所在通道"></el-input>
+          </el-form-item>
+
+          <el-form-item label="用户名" prop="name">
+            <el-input v-model="signup.name" placeholder="请输入用户名"></el-input>
           </el-form-item>
 
           <el-form-item label="密码" prop="password">
