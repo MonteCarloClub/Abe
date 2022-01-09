@@ -1,55 +1,91 @@
 <template>
-  <section class="grid-cols-2">
-    <div class="animated-background">
-      <div class="left-intro">
+  <section class="header">
+    <el-carousel height="450px" :interval="2000" arrow="always">
+      <el-carousel-item>
+        <div class="background-image">
+          <img src="@/assets/images/home/banner-1.jpg" alt="信息安全" />
+        </div>
+      </el-carousel-item>
+      <el-carousel-item>
+        <div class="background-image">
+          <img src="@/assets/images/home/banner-2.png" alt="信息安全" />
+        </div>
+      </el-carousel-item>
+      <el-carousel-item>
+        <div class="background-image">
+          <img src="@/assets/images/home/banner-3.jpg" alt="信息安全" />
+        </div>
+      </el-carousel-item>
+    </el-carousel>
+    <div class="intro">
+      <div>
         <h1>数据共享交换</h1>
       </div>
-    </div>
-    <div class="img-box">
-      <img :src="imgHome('section_1.jpg')" alt="信息安全" />
+      <div class="options">
+        <router-link to="/signup">
+          <el-button type="primary">去注册</el-button>
+        </router-link>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
-import { DynamicImage } from "@/mixins/DynamicImage";
 
 export default {
   name: "Banner",
-  mixins: [DynamicImage("home/")],
   methods: {},
 };
 </script>
 
 <style scoped>
-
-.grid-cols-2 {
-  display: grid;
-  grid-template-columns: 50% 50%;
-}
-
-.left-intro {
-  margin: 30% 0 0 30%;
-  font-size: 40px;
-}
-
-.img-box {
-  overflow: hidden;
+.header {
   position: relative;
 }
 
-.img-box img {
+.titles {
+  margin: 32px 0;
+  font-size: 20px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.intro {
+  z-index: 10;
+  margin: 0 auto;
+  position: absolute;
+  left: var(--body-margin, 32px);
+  top: var(--header-height, 16px);
+}
+
+.intro h1 {
+  font-weight: 300;
+  font-size: 3.625rem;
+}
+
+.options {
+  padding-top: 50px;
+}
+
+.background-image {
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+}
+
+.background-image img {
+  width: 100%;
   height: 100%;
 }
 
-.img-box:after {
+.background-image:after {
   position: absolute;
   width: 100%;
   height: 100%;
   left: 0;
   top: 0;
   display: block;
-  background: linear-gradient(220deg, #5c5c5c30, transparent, transparent);
+  background: linear-gradient(220deg, #5a5a5a40, transparent, transparent);
   content: "";
 }
 
@@ -69,5 +105,4 @@ export default {
   animation: bg-scrolling-reverse 0.92s infinite; /* IE 10+ */
   animation-timing-function: linear;
 }
-
 </style>
