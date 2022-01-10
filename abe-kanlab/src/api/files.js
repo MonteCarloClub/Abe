@@ -55,7 +55,7 @@ export const fileApi = {
      */
     files: function ({ userName, tag, size, bookmark }) {
         const _data = { userName, tag, size, bookmark }
-        // fromUserName 分享人 String 
+        // fromUserName 分享人 String ，为 "" 空表示查询所有人的文件
         // tag          标签   String 
         // pageSize     每页显示条数 Int 默认为 10
         // bookmark     下一页的起点   String 默认为空

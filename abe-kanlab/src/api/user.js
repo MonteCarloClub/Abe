@@ -1,6 +1,4 @@
 import request from '@/utils/request'
-import { localUsers } from "../mock/users"
-import { Message } from 'element-ui'
 
 export const userApi = {
     /**
@@ -38,22 +36,7 @@ export const userApi = {
                 else {
                     reject(response)
                 }
-            }).catch(error => {
-                // 调用 Mock 的数据
-                if (error) {
-                    const resp = localUsers.signup(_data)
-                    if (resp.err === 0) {
-                        resolve(resp.data)
-                    }
-                    else {
-                        Message({
-                            message: resp.msg,
-                            duration: 5 * 1000
-                        })
-                    }
-                }
-                else reject(error)
-            })
+            }).catch(reject)
         })
     },
 

@@ -9,6 +9,10 @@
       </el-menu> -->
     </div>
     <div class="options">
+      <router-link to="/allfiles">
+        <button> 文件仓库 </button>
+      </router-link>
+
       <router-link v-if="login" to="/user">
         <button>{{ userName }}</button>
       </router-link>
