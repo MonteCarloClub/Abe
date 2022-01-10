@@ -93,9 +93,9 @@ export default {
     },
     decryDownload(scope) {
       const user = getters.userName();
-      const { cipher, sharedUser, fileName } = scope;
+      const { cipher, sharedUser, fileName, tags } = scope;
       fileApi
-        .decrypt({ user, cipher, sharedUser, fileName })
+        .decrypt({ user, cipher, sharedUser, fileName, tags })
         .then(() => {
           return fileApi
             .download({ fileName, sharedUser })

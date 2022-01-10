@@ -111,7 +111,7 @@ export const fileApi = {
      * @param {*} _data 参数
      * @returns Promise
      */
-    decrypt: function ({ user, cipher, sharedUser, fileName }) {
+    decrypt: function ({ user, cipher, sharedUser, fileName, tags }) {
         // userName   解密用户
         // fileName   解密文件名
         // cipher     密文
@@ -120,6 +120,7 @@ export const fileApi = {
             userName: user,
             fileName,
             cipher,
+            tags,
             sharedUser,
         }
 

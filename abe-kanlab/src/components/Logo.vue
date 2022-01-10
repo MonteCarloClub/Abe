@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <img alt="Kanlab logo" src="@/assets/images/logo.png" />
-    <div>KanLab</div>
+    <div>Data Share</div>
   </div>
 </template>
 

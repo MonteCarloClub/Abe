@@ -19,9 +19,14 @@
     </el-carousel>
     <div class="intro">
       <div>
-        <h1>数据共享交换</h1>
+        <h1>智慧城市数据共享交换</h1>
       </div>
-      <router-link to="/signup">
+      <router-link v-if="login" to="/user">
+        <div class="wrap">
+          <button class="button" type="primary">进入我的面板</button>
+        </div>
+      </router-link>
+      <router-link v-else to="/signup">
         <div class="wrap">
           <button class="button" type="primary">去注册</button>
         </div>
@@ -31,9 +36,14 @@
 </template>
 
 <script>
+import { getters } from "@/store/store";
+
 export default {
   name: "Banner",
   methods: {},
+  computed: {
+    login: getters.isLogin,
+  },
 };
 </script>
 
@@ -53,7 +63,7 @@ export default {
   text-align: center;
   z-index: 10;
   left: 50%;
-  width: 500px;
+  width: 800px;
   position: absolute;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);

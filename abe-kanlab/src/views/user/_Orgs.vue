@@ -1,10 +1,11 @@
 <template>
   <Card>
-    <div>
+    <div v-if="orgs.length">
       <router-link v-for="(org, index) in orgs" :key="index" :to="`/user/organization/${org}`">
         <div class="tab" v-bind:class="{ current: $route.params.org === org }">{{ org }}</div>
       </router-link>
     </div>
+    <div v-else>暂未加入组织</div>
   </Card>
 </template>
 
