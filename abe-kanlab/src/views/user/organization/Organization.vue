@@ -4,30 +4,33 @@
     tag="div"
     v-on:before-enter="beforeEnter"
     v-on:enter="animEnter"
+    v-on:leave="animLeave"
     appear
   >
     <Mine key="0" data-index="0" :info="info" />
     <Members key="3" data-index="0.3" :info="info" />
-    <Applications key="2" data-index="0.6" />
-    <Approvals key="1" data-index="0.7" />
+    <template v-if="success">
+      <Attributes key="5" data-index="0.5" :info="info" />
+      <Search key="4" data-index="0.5" :info="info" />
+    </template>
   </transition-group>
 </template>
 
 <script>
 // @ is an alias to /src
 import Mine from "./_Mine.vue";
+import Search from "./_Search.vue";
 import Members from "./_Members.vue";
-import Approvals from "./_Approvals.vue";
-import Applications from "./_Applications.vue";
+import Attributes from "./_Attributes.vue";
 import { orgApi } from "@/api/organizations";
 
 export default {
-  name: "Attributes",
+  name: "Organization",
   components: {
     Mine,
+    Search,
     Members,
-    Approvals,
-    Applications,
+    Attributes,
   },
   watch: {
     $route(to) {
@@ -36,7 +39,8 @@ export default {
   },
   data() {
     return {
-      info: {}
+      info: {},
+      success: false,
     };
   },
   mounted() {
@@ -45,13 +49,19 @@ export default {
 
   methods: {
     initOrg(id) {
+      this.success = false;
       if (id == undefined) return;
       orgApi
         .tempOrgInfo({
           orgName: id,
         })
-        .then((_) => {
-          this.info = _;
+        .then((org) => {
+          this.info = org;
+          if (org.status === "SUCCESS") {
+            this.success = true;
+            // 如果是成功创建的组织，试图获取详细信息
+            this.getOrgDetail(id);
+          }
         })
         .catch((e) => {
           this.$message({
@@ -61,12 +71,26 @@ export default {
         });
     },
 
+    getOrgDetail(orgName) {
+      orgApi
+        .detailInfo({ orgName })
+        .then((detail) => {
+          this.info = {
+            ...this.info,
+            opk: detail.opk,
+            attributes: detail.attrSet,
+          };
+        })
+        .catch(console.log);
+    },
+
     beforeEnter: function (el) {
       if (el.dataset.index > -1) {
         el.style.opacity = 0.5;
-        el.style.transform = "translateX(30px)";
+        el.style.transform = "translateY(-30px)";
       }
     },
+
     animEnter: function (el, done) {
       var delay = el.dataset.index * 250;
       setTimeout(function () {
@@ -74,6 +98,13 @@ export default {
         el.style = "";
         done();
       }, delay);
+    },
+
+    animLeave: function (el, done) {
+      if (el.dataset.index > -1) {
+        el.style.opacity = 0.5;
+        done();
+      }
     },
   },
 };

@@ -183,13 +183,15 @@ export default {
       const userName = getters.userName();
 
       orgApi
-        .submitppk({ userName, orgName:org.name })
+        .submitppk({ userName, orgName: org.name })
         .then(() => {
           this.$message({
             message: "提交成功",
             duration: 2 * 1000,
             type: "success",
           });
+          // 尝试最终确认
+          this.trycompleteOrgPK(userName, org.name);
         })
         .catch((e) => {
           this.$message({
@@ -197,6 +199,19 @@ export default {
             type: "error",
           });
         });
+    },
+
+    trycompleteOrgPK(userName, orgName) {
+      orgApi
+        .completeOrg({ userName, orgName })
+        .then(() => {
+          this.$message({
+            message: "组织已确认创建",
+            duration: 2 * 1000,
+            type: "success",
+          });
+        })
+        .catch(console.log);
     },
   },
 };

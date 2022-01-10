@@ -58,12 +58,12 @@ export const orgApi = {
      * @param {*} _data 参数
      * @returns Promise
      */
-    join: function ({userName, orgName}) {
+    join: function ({ userName, orgName }) {
         // fileName 用户名
         // orgName  组织名称
         const data = {
             fileName: userName,
-            orgName:  orgName,
+            orgName: orgName,
         }
 
         return new Promise((resolve, reject) => {
@@ -88,14 +88,14 @@ export const orgApi = {
     },
 
     /**
-     * 提交 part-pk（生成组织/组织属性）
+     * 提交 part-pk 生成组织 
      * @param {*} _data 参数
      * @returns Promise
      */
-    submitppk: function ({orgName, userName}) {
+    submitppk: function ({ orgName, userName }) {
         // type     类型      CREATION/ ATTRIBUTE
         // orgName  组织名称
-        // fileName 用户名    生成组织属性时为’’
+        // fileName 用户名  
         // attrName 属性名    生成组织时为’’
         const data = {
             type: 'CREATION',
@@ -121,13 +121,83 @@ export const orgApi = {
                 else {
                     reject(response)
                 }
-            }).catch(error => {
-                // 调用 Mock 的数据
-                if (error) {
-                    console.log(error);
+            }).catch(reject)
+        })
+    },
+
+    /**
+     * 提交 part-pk 生成组织属性 
+     * @param {*} _data 参数
+     * @returns Promise
+     */
+    submitOrgAttppk: function ({ orgName, userName, attrName }) {
+        // type     类型      CREATION/ ATTRIBUTE
+        // orgName  组织名称
+        // fileName 用户名 
+        // attrName 属性名    生成组织时为’’
+        const data = {
+            type: 'ATTRIBUTE',
+            orgName,
+            fileName: userName,
+            attrName,
+        }
+
+        return new Promise((resolve, reject) => {
+            request({
+                url: '/org/part-pk',
+                method: 'post',
+                params: data
+            }).then(response => {
+                // {
+                //     "code":200   200, 成功; 其他，失败
+                //     "msg":null,  描述
+                //     "data": {}
+                // }
+                if (response.code === 200) {
+                    resolve(response.data)
                 }
-                else reject(error)
-            })
+                else {
+                    reject(response)
+                }
+            }).catch(reject)
+        })
+    },
+
+    /**
+     * 最终确认，生成新组织
+     * @param {*} _data 参数
+     * @returns Promise
+     */
+    completeOrg: function ({ orgName, userName }) {
+        // orgName  组织名称
+        // type     类型      CREATION 
+        // userName 用户名    生成组织属性时为’’
+        // attrName 属性名    生成组织时为’’
+        const data = {
+            type: "CREATION",
+            orgName: orgName,
+            userName: userName,
+            attrName: "",
+        }
+
+        return this.complete(data)
+    },
+
+    /**
+     * 最终确认，生成新组织新属性 
+     * @param {*} _data 参数
+     * @returns Promise
+     */
+    completeOrgAttr: function ({ orgName, userName, attrName }) {
+        // type     类型      ATTRIBUTE
+        // orgName  组织名称
+        // userName 用户名
+        // attrName 属性名
+        return this.complete({
+            type: "ATTRIBUTE", 
+            orgName, 
+            userName, 
+            attrName
         })
     },
 
@@ -136,23 +206,23 @@ export const orgApi = {
      * @param {*} _data 参数
      * @returns Promise
      */
-    confirm: function (_data) {
+    complete: function ({ type, orgName, userName, attrName }) {
         // type     类型      CREATION/ ATTRIBUTE
         // orgName  组织名称
         // fileName 用户名    生成组织属性时为’’
         // attrName 属性名    生成组织时为’’
         const data = {
-            type: _data.type,
-            orgName: _data.orgName,
-            fileName: _data.userName,
-            attrName: _data.attrName,
+            type: type,
+            orgName: orgName,
+            fileName: userName,
+            attrName: attrName,
         }
 
         return new Promise((resolve, reject) => {
             request({
                 url: '/org/complete-pk',
-                method: 'get',
-                data,
+                method: 'post',
+                params: data,
             }).then(response => {
                 // {
                 //     "code":200   200, 成功; 其他，失败
@@ -165,22 +235,16 @@ export const orgApi = {
                 else {
                     reject(response)
                 }
-            }).catch(error => {
-                // 调用 Mock 的数据
-                if (error) {
-                    console.log(error);
-                }
-                else reject(error)
-            })
+            }).catch(reject)
         })
     },
 
     /**
-     * 查询新增组织 / 组织属性申请
+     * 查询新增组织申请
      * @param {*} _data 参数
      * @returns Promise
      */
-    tempOrgInfo: function ({orgName}) {
+    tempOrgInfo: function ({ orgName }) {
         // type     类型      CREATION/ ATTRIBUTE
         // orgName  组织名称
         // attrName 属性名    生成组织时为’’
@@ -230,11 +294,65 @@ export const orgApi = {
     },
 
     /**
+     * 查询新增组织属性申请
+     * @param {*} _data 参数
+     * @returns Promise
+     */
+    tempOrgAttrInfo: function ({ orgName, attrName }) {
+        // type     类型      ATTRIBUTE
+        // orgName  组织名称
+        // attrName 属性名    
+        const params = {
+            type: "ATTRIBUTE",
+            orgName: orgName,
+            attrName: attrName,
+        }
+
+        return new Promise((resolve, reject) => {
+            request({
+                url: '/org/apply',
+                method: 'get',
+                params,
+            }).then(response => {
+                // {
+                //     "code":200   200, 成功; 其他，失败
+                //     "msg":"success", 描述
+                //     "data": {
+                //          String orgId;
+                //          Map<String, Boolean> uidMap;
+                //          Map<String, Map<String, String>> shareMap;
+                //          Map<String, String> opkMap;
+                //          Integer t;
+                //          Integer n;
+                //          String fromUserName;
+                //          OrgApplyStatusEnum status;
+                //          String createTime;
+                //          String attrName;
+                //          OrgApplyTypeEnum type;
+                //      }
+                // }
+                if (response.code === 200) {
+                    resolve(response.data)
+                }
+                else {
+                    reject(response)
+                }
+            }).catch(error => {
+                // 调用 Mock 的数据
+                if (error) {
+                    console.log(error);
+                }
+                else reject(error)
+            })
+        })
+    },
+
+    /**
      * 查询组织信息
      * @param {*} _data 参数
      * @returns Promise
      */
-    info: function ({orgName}) {
+    detailInfo: function ({ orgName }) {
         // 以下参数放在 params 中
         // orgName  组织名称
         const data = {
@@ -274,21 +392,21 @@ export const orgApi = {
      * @param {*} _data 参数
      * @returns Promise
      */
-    declareAttr: function (_data) {
+    declareAttr: function ({orgName, userName, attrName}) {
         // orgName  组织名称
         // fileName 用户名
         // attrName 属性名
         const data = {
-            orgName: _data.orgName,
-            fileName: _data.userName,
-            attrName: _data.attrName,
+            orgName,
+            fileName: userName,
+            attrName,
         }
 
         return new Promise((resolve, reject) => {
             request({
                 url: '/org/apply/attribute',
-                method: 'get',
-                data,
+                method: 'post',
+                data
             }).then(response => {
                 // {
                 //     "code":200   200, 成功; 其他，失败
@@ -301,29 +419,23 @@ export const orgApi = {
                 else {
                     reject(response)
                 }
-            }).catch(error => {
-                // 调用 Mock 的数据
-                if (error) {
-                    console.log(error);
-                }
-                else reject(error)
-            })
+            }).catch(reject)
         })
     },
 
     /**
      * 审批组织新属性
-     * @param {*} _data 参数
+     * @param {*} data 参数
      * @returns Promise
      */
-    approvalAttr: function (_data) {
+    approvalAttr: function ({userName, orgName, attrName}) {
         // fileName 用户名
         // orgName  组织名称
         // attrName 属性名
         const data = {
-            fileName: _data.userName,
-            orgName: _data.orgName,
-            attrName: _data.attrName,
+            fileName: userName,
+            orgName,
+            attrName,
         }
 
         return new Promise((resolve, reject) => {
@@ -343,13 +455,7 @@ export const orgApi = {
                 else {
                     reject(response)
                 }
-            }).catch(error => {
-                // 调用 Mock 的数据
-                if (error) {
-                    console.log(error);
-                }
-                else reject(error)
-            })
+            }).catch(reject)
         })
     },
 }

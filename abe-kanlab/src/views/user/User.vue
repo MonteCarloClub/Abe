@@ -76,4 +76,14 @@ export default {
 .el-table .cell {
   white-space: nowrap !important;
 }
+
+.el-descriptions-item__content {
+  white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.el-descriptions-item__label {
+  white-space: nowrap !important;
+}
 </style>

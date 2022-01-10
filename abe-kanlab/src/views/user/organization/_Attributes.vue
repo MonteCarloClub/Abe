@@ -1,17 +1,13 @@
 <template>
-  <Card title="我的属性">
+  <Card title="组织属性">
     <template v-slot:op>
       <el-input size="medium" placeholder="请输入要声明的属性" v-model="newAttr">
         <el-button slot="append" @click="generateAttr">声明新属性</el-button>
       </el-input>
     </template>
-    <div v-if="APKMap">
-      <el-table :data="getAttributes(APKMap)" style="width: 100%">
-        <el-table-column prop="name" label="属性名" width="180"> </el-table-column>
-        <el-table-column prop="value" label="属性公钥"> </el-table-column>
-      </el-table>
-    </div>
-    <el-empty v-else :image-size="100" description="还没有属性"></el-empty>
+    <el-table :data="getAttributes(info.attributes)" style="width: 100%">
+      <el-table-column prop="name" label="属性名"> </el-table-column>
+    </el-table>
   </Card>
 </template>
 
@@ -19,7 +15,7 @@
 // @ is an alias to /src
 import Card from "@/components/Card.vue";
 import { getters } from "@/store/store";
-import { actions } from "@/store/actions";
+import { orgApi } from "@/api/organizations";
 
 export default {
   name: "Attributes",
@@ -27,8 +23,8 @@ export default {
     Card,
   },
 
-  computed: {
-    ...getters.mapUser(["APKMap"]),
+  props: {
+    info: {},
   },
 
   data() {
@@ -39,20 +35,25 @@ export default {
 
   methods: {
     getAttributes(attrMap) {
+      if (attrMap == undefined) return;
+      
       let attributes = [];
       for (let key of Object.keys(attrMap)) {
         attributes.push({
-          name: key,
-          value: attrMap[key].Gy,
+          name: attrMap[key]
         });
       }
       return attributes;
     },
+
     generateAttr() {
-      const { name } = getters.properties(["name", "password"]);
-      const attr = `${name}:${this.newAttr}`;
-      actions
-        .generate({ name, attr })
+      const userName = getters.userName();
+      
+      const orgName = this.info.orgId;
+      const attrName = `${orgName}:${this.newAttr}`;
+
+      orgApi
+        .declareAttr({ userName, orgName, attrName })
         .then(() => {
           this.$message({
             message: "创建成功",
