@@ -1,4 +1,5 @@
 module.exports = (options = {}) => ({
+  publicPath: './',
   devServer: {
     host: 'localhost',
     port: 8081,
@@ -10,6 +11,6 @@ module.exports = (options = {}) => ({
           '^/api': ''
         }
       }
-    }
+    },
   },
 })

@@ -1,12 +1,12 @@
 import axios from 'axios'
 import { devLog } from "./log";
-// https://axios-http.com/zh/docs/interceptors
 
+// https://axios-http.com/zh/docs/interceptors
 // create an axios instance
 const service = axios.create({
     // url = base url + request url
     // VUE_APP_BASE_URL 来自 .env 配置文件
-    baseURL: process.env.VUE_APP_BASE_URL,
+    baseURL: process.env.NODE_ENV === "development" ? process.env.VUE_APP_DEV_URL : process.env.VUE_APP_PRO_URL,
     // withCredentials: true, // send cookies when cross-domain requests
     timeout: 5000 // request timeout
 })
