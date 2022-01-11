@@ -1,9 +1,9 @@
 <template>
   <Card title="我的文件">
     <el-table :data="files">
-      <el-table-column label="文件名" prop="fileName" width="200" />
+      <el-table-column label="文件名" prop="fileName"/>
       <el-table-column label="密文" prop="cipher" />
-      <el-table-column label="上传者" prop="sharedUser" width="100" />
+      <el-table-column label="上传者" prop="sharedUser" width="200" />
       <el-table-column label="加密策略" prop="policy" />
       <el-table-column label="标签" prop="tags">
         <template slot-scope="scope">

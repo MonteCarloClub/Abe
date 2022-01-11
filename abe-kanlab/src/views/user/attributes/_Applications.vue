@@ -9,15 +9,8 @@
       </template>
       <div v-if="appliedAttrMap">
         <el-table :data="formatAttributes(appliedAttrMap)" stripe style="width: 100%">
-          <el-table-column prop="name" label="属性名" width="180"> </el-table-column>
+          <el-table-column prop="name" label="属性名"> </el-table-column>
           <el-table-column prop="value" label="属性公钥"> </el-table-column>
-          <!-- <el-table-column prop="status" label="状态" width="100" align="right">
-            <template slot-scope="scope">
-              <el-tag :type="statusTypes[scope.row.status]">
-                {{ scope.row.status }}
-              </el-tag>
-            </template>
-          </el-table-column> -->
         </el-table>
       </div>
       <el-empty v-else :image-size="100" description="没有正在申请的属性"></el-empty>

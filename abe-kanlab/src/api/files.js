@@ -160,7 +160,7 @@ export const fileApi = {
 
         return new Promise((resolve, reject) => {
             axios.request({
-                url: 'api/content/download',
+                url: '/content/download',
                 method: 'get',
                 data,
                 params: data
