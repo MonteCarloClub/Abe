@@ -6,7 +6,7 @@
       </el-input>
     </template>
     <el-table :data="getAttributes(info.attributes)" style="width: 100%">
-      <el-table-column prop="name" label="属性名"> </el-table-column>
+      <el-table-column show-overflow-tooltip prop="name" label="属性名"> </el-table-column>
     </el-table>
   </Card>
 </template>

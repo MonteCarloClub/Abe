@@ -9,8 +9,8 @@
       </template>
       <div v-if="appliedAttrMap">
         <el-table :data="formatAttributes(appliedAttrMap)" stripe style="width: 100%">
-          <el-table-column prop="name" label="属性名"> </el-table-column>
-          <el-table-column prop="value" label="属性公钥"> </el-table-column>
+          <el-table-column show-overflow-tooltip prop="name" label="属性名"> </el-table-column>
+          <el-table-column show-overflow-tooltip prop="value" label="属性公钥"> </el-table-column>
         </el-table>
       </div>
       <el-empty v-else :image-size="100" description="没有正在申请的属性"></el-empty>

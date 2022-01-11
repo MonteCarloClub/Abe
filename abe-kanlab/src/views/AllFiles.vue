@@ -16,11 +16,11 @@
 
     <Card>
       <el-table :data="files">
-        <el-table-column label="文件名" prop="fileName" width="200" />
-        <el-table-column label="密文" prop="cipher" />
-        <el-table-column label="上传者" prop="sharedUser" width="100" />
-        <el-table-column label="加密策略" prop="policy" />
-        <el-table-column label="标签" prop="tags">
+        <el-table-column show-overflow-tooltip label="文件名" prop="fileName" width="200" />
+        <el-table-column show-overflow-tooltip label="密文" prop="cipher" />
+        <el-table-column show-overflow-tooltip label="上传者" prop="sharedUser" width="100" />
+        <el-table-column show-overflow-tooltip label="加密策略" prop="policy" />
+        <el-table-column show-overflow-tooltip label="标签" prop="tags">
           <template slot-scope="scope">
             <el-tag v-for="(tag, i) in scope.row.tags" :key="i" size="small" effect="plain">
               {{ tag }}

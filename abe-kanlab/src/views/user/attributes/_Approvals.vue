@@ -13,9 +13,9 @@
               {{ scope.row.applyType }}
             </template>
           </el-table-column>
-          <el-table-column prop="attrName" label="属性名"> </el-table-column>
-          <el-table-column prop="fromUid" label="申请人" width="200"> </el-table-column>
-          <el-table-column prop="remark" label="申请备注"> </el-table-column>
+          <el-table-column show-overflow-tooltip prop="attrName" label="属性名"> </el-table-column>
+          <el-table-column show-overflow-tooltip prop="fromUid" label="申请人"> </el-table-column>
+          <el-table-column show-overflow-tooltip prop="remark" label="申请备注"> </el-table-column>
 
           <el-table-column label="操作" width="160">
             <template slot-scope="scope">

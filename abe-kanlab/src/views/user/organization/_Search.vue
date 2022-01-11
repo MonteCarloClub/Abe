@@ -7,9 +7,9 @@
     </template>
     <div v-if="attr">
       <el-table :data="[attr]">
-        <el-table-column label="属性名" prop="attrName" />
+        <el-table-column show-overflow-tooltip label="属性名" prop="attrName" />
         <el-table-column label="申请时间" prop="createTime" width="160" />
-        <el-table-column label="申请人" prop="fromUserName" />
+        <el-table-column show-overflow-tooltip label="申请人" prop="fromUserName" />
         <el-table-column label="状态" prop="status" width="150">
           <template slot-scope="scope">
             <el-tag size="small" effect="plain">
@@ -27,7 +27,7 @@
       </el-table>
 
       <el-table :data="members(attr.uidMap)" stripe style="width: 100%">
-        <el-table-column prop="name" label="小组成员"> </el-table-column>
+        <el-table-column show-overflow-tooltip prop="name" label="小组成员"> </el-table-column>
         <el-table-column prop="status" label="是否同意该属性" align="right">
           <template slot-scope="scope">
             <el-tag :type="statusTypes[scope.row.value]">
