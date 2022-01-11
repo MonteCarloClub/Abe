@@ -160,10 +160,12 @@ export const fileApi = {
 
         return new Promise((resolve, reject) => {
             axios.request({
+                baseURL: process.env.NODE_ENV === "development" ? process.env.VUE_APP_DEV_URL : process.env.VUE_APP_PRO_URL,
                 url: '/content/download',
                 method: 'get',
                 data,
-                params: data
+                params: data,
+                responseType: 'blob', // important
             }).then(response => {
                 // {
                 //     "code":200     200, 成功; 其他，失败

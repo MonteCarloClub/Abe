@@ -7,7 +7,7 @@
       <el-table-column show-overflow-tooltip label="加密策略" prop="policy" />
       <el-table-column show-overflow-tooltip label="标签" prop="tags">
         <template slot-scope="scope">
-          <el-tag v-for="(tag, i) in scope.row.tags" :key="i" size="small" effect="plain">
+          <el-tag v-for="(tag, i) in filterEmpty(scope.row.tags)" :key="i" size="small" effect="plain">
             {{ tag }}
           </el-tag>
         </template>
@@ -29,9 +29,12 @@
 import Card from "@/components/Card.vue";
 import { fileApi } from "@/api/files";
 import { getters } from "@/store/store";
+import { FileDownloader } from "@/mixins/Download";
+import { FilterEmpty } from "@/mixins/FilterEmpty";
 
 export default {
   name: "Mine",
+  mixins: [FileDownloader, FilterEmpty],
   components: {
     Card,
   },
@@ -83,20 +86,6 @@ export default {
             type: "error",
           });
         });
-    },
-
-    saveFile(fileName, _) {
-      var pom = document.createElement("a");
-      pom.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(_));
-      pom.setAttribute("download", fileName);
-
-      if (document.createEvent) {
-        var event = document.createEvent("MouseEvents");
-        event.initEvent("click", true, true);
-        pom.dispatchEvent(event);
-      } else {
-        pom.click();
-      }
     },
   },
 };
