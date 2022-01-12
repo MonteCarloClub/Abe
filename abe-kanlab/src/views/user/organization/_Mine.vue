@@ -39,9 +39,14 @@ export default {
   },
   methods: {
     formatTime(unix_timestamp) {
-      // Create a new JavaScript Date object based on the timestamp
-      // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-      var a = new Date(unix_timestamp * 1000);
+      let a = "-";
+      try {
+        // Create a new JavaScript Date object based on the timestamp
+        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+        a = new Date(unix_timestamp * 1000);
+      } catch (error) {
+        console.log(error);
+      }
       var months = [
         "Jan",
         "Feb",

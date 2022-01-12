@@ -57,7 +57,7 @@ export default {
         })
         .then((org) => {
           this.info = org;
-          if (org.status === "SUCCESS") {
+          if (org && org.status === "SUCCESS") {
             this.success = true;
             // 如果是成功创建的组织，试图获取详细信息
             this.getOrgDetail(id);

@@ -5,7 +5,7 @@
         <el-button slot="append" @click="generateAttr">声明新属性</el-button>
       </el-input>
     </template>
-    <el-table :data="getAttributes(info.attributes)" style="width: 100%">
+    <el-table :data="getAttributes(info)" style="width: 100%">
       <el-table-column show-overflow-tooltip prop="name" label="属性名"> </el-table-column>
     </el-table>
   </Card>
@@ -34,13 +34,16 @@ export default {
   },
 
   methods: {
-    getAttributes(attrMap) {
+    getAttributes(info) {
+      if (info == undefined) return [];
+      const attrMap = info.attributes;
+
       if (attrMap == undefined) return;
-      
+
       let attributes = [];
       for (let key of Object.keys(attrMap)) {
         attributes.push({
-          name: attrMap[key]
+          name: attrMap[key],
         });
       }
       return attributes;
@@ -48,7 +51,6 @@ export default {
 
     generateAttr() {
       const userName = getters.userName();
-      
       const orgName = this.info.orgId;
       const attrName = `${orgName}:${this.newAttr}`;
 

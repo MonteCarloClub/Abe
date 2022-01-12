@@ -26,9 +26,9 @@
         </el-table-column>
       </el-table>
 
-      <el-table :data="members(attr.uidMap)" stripe style="width: 100%">
+      <el-table :data="members(attr)" stripe style="width: 100%">
         <el-table-column show-overflow-tooltip prop="name" label="小组成员"> </el-table-column>
-        <el-table-column prop="status" label="是否同意该属性" align="right">
+        <el-table-column prop="value" label="是否同意该属性" align="right">
           <template slot-scope="scope">
             <el-tag :type="statusTypes[scope.row.value]">
               {{ scope.row.value ? "已同意" : "未响应" }}
@@ -121,7 +121,7 @@ export default {
 
     trycompleteOrgPK(userName, orgName, attrName) {
       orgApi
-        .completeOrgAttr({ userName, orgName, attrName})
+        .completeOrgAttr({ userName, orgName, attrName })
         .then(() => {
           this.$message({
             message: "组织属性已确认创建",
@@ -157,9 +157,14 @@ export default {
     },
 
     formatTime(unix_timestamp) {
-      // Create a new JavaScript Date object based on the timestamp
-      // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-      var a = new Date(unix_timestamp * 1000);
+      let a = "-";
+      try {
+        // Create a new JavaScript Date object based on the timestamp
+        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+        a = new Date(unix_timestamp * 1000);
+      } catch (error) {
+        console.log(error);
+      }
       var months = [
         "Jan",
         "Feb",
@@ -184,7 +189,10 @@ export default {
       return time;
     },
 
-    members(uidMap) {
+    members(info) {
+      if (info == undefined) return [];
+      const { uidMap } = info;
+
       if (uidMap == undefined) return [];
       let members = [];
       for (let key of Object.keys(uidMap)) {
