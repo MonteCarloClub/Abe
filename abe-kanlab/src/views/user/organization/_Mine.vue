@@ -17,9 +17,11 @@
 <script>
 // @ is an alias to /src
 import Card from "@/components/Card.vue";
+import { TimeFormat } from "@/mixins/TimeFormat";
 
 export default {
   name: "Mine",
+  mixins: [TimeFormat],
   components: {
     Card,
   },
@@ -31,44 +33,6 @@ export default {
       createTime: "",
       fromUserName: "",
       status: "",
-    },
-  },
-
-  data() {
-    return {};
-  },
-  methods: {
-    formatTime(unix_timestamp) {
-      let a = "-";
-      try {
-        // Create a new JavaScript Date object based on the timestamp
-        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-        a = new Date(unix_timestamp * 1000);
-      } catch (error) {
-        console.log(error);
-      }
-      var months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
-      var year = a.getFullYear();
-      var month = months[a.getMonth()];
-      var date = a.getDate();
-      var hour = a.getHours();
-      var min = a.getMinutes();
-      var sec = a.getSeconds();
-      var time = date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
-      return time;
     },
   },
 };

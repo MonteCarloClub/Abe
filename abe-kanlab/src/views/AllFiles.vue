@@ -15,27 +15,7 @@
     </Card>
 
     <Card>
-      <el-table :data="files">
-        <el-table-column show-overflow-tooltip label="文件名" prop="fileName" width="200" />
-        <el-table-column show-overflow-tooltip label="密文" prop="cipher" />
-        <el-table-column show-overflow-tooltip label="上传者" prop="sharedUser" width="100" />
-        <el-table-column show-overflow-tooltip label="加密策略" prop="policy" />
-        <el-table-column show-overflow-tooltip label="标签" prop="tags">
-          <template slot-scope="scope">
-            <el-tag v-for="(tag, i) in filterEmpty(scope.row.tags)" :key="i" size="small" effect="plain">
-              {{ tag }}
-            </el-tag>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="操作" width="160" align="right">
-          <template slot-scope="scope">
-            <el-button size="mini" type="success" @click="decryDownload(scope.row)">
-              解密下载
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+      <FilesTable :files="files" />
     </Card>
   </div>
 </template>
@@ -43,8 +23,8 @@
 <script>
 // @ is an alias to /src
 import Card from "@/components/Card.vue";
+import FilesTable from "@/components/FilesTable.vue";
 import { fileApi } from "@/api/files";
-import { getters } from "@/store/store";
 import { FileDownloader } from "@/mixins/Download";
 import { FilterEmpty } from "@/mixins/FilterEmpty";
 
@@ -52,6 +32,7 @@ export default {
   name: "Mine",
   components: {
     Card,
+    FilesTable
   },
   mixins: [FileDownloader, FilterEmpty],
   data() {
@@ -93,34 +74,6 @@ export default {
           this.bookmark = _.bookmark;
         })
         .catch(console.log);
-    },
-
-    decryDownload(scope) {
-      const user = getters.userName();
-      const { cipher, sharedUser, fileName, tags } = scope;
-      fileApi
-        .decrypt({ user, cipher, sharedUser, fileName, tags })
-        .then(() => {
-          return fileApi
-            .download({ fileName, sharedUser })
-            .then((content) => {
-              this.saveFile(fileName, content);
-            })
-            .catch((e) => {
-              this.$message({
-                message: e.message,
-                duration: 5000,
-                type: "error",
-              });
-            });
-        })
-        .catch((e) => {
-          this.$message({
-            message: e.message,
-            duration: 5000,
-            type: "error",
-          });
-        });
     },
   },
 };

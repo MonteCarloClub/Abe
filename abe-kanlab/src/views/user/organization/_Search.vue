@@ -8,7 +8,11 @@
     <div v-if="attr">
       <el-table :data="[attr]">
         <el-table-column show-overflow-tooltip label="属性名" prop="attrName" />
-        <el-table-column label="申请时间" prop="createTime" width="160" />
+        <el-table-column label="申请时间" prop="createTime" width="160">
+          <template slot-scope="scope">
+              {{ formatTime(scope.row.createTime) }}
+          </template>
+        </el-table-column>
         <el-table-column show-overflow-tooltip label="申请人" prop="fromUserName" />
         <el-table-column label="状态" prop="status" width="150">
           <template slot-scope="scope">
@@ -46,9 +50,11 @@
 import Card from "@/components/Card.vue";
 import { getters } from "@/store/store";
 import { orgApi } from "@/api/organizations";
+import { TimeFormat } from "@/mixins/TimeFormat";
 
 export default {
   name: "Search",
+  mixins: [TimeFormat],
   components: {
     Card,
   },
@@ -78,7 +84,7 @@ export default {
         .tempOrgAttrInfo({ orgName, attrName })
         .then((attrInfo) => {
           if (attrInfo) {
-            attrInfo.createTime = this.formatTime(attrInfo.createTime);
+            // attrInfo.createTime = this.formatTime(attrInfo.createTime);
             this.attr = attrInfo;
           } else {
             this.$message({
@@ -154,39 +160,6 @@ export default {
             type: "error",
           });
         });
-    },
-
-    formatTime(unix_timestamp) {
-      let a = "-";
-      try {
-        // Create a new JavaScript Date object based on the timestamp
-        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-        a = new Date(unix_timestamp * 1000);
-      } catch (error) {
-        console.log(error);
-      }
-      var months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
-      var year = a.getFullYear();
-      var month = months[a.getMonth()];
-      var date = a.getDate();
-      var hour = a.getHours();
-      var min = a.getMinutes();
-      var sec = a.getSeconds();
-      var time = date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
-      return time;
     },
 
     members(info) {

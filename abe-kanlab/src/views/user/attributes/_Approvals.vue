@@ -66,11 +66,26 @@ export default {
   },
 
   mounted() {
-    const to = getters.userName();
+    const { OPKMap, name } = getters.properties(["OPKMap", "name"]);
+
+    // 0 是用户
+    const query = [
+      {
+        to: name,
+        role: 0,
+      },
+    ];
+    Object.keys(OPKMap).map((org) => {
+      query.push({
+        to: org,
+        role: 1,
+      });
+    });
+
     const status = "ALL";
     let res = [];
 
-    Promise.all([0, 1].map((role) => attrApi.applications({ to, role, status })))
+    Promise.all(query.map(({to, role}) => attrApi.applications({ to, role, status })))
       .then((responses) => {
         responses.forEach((response) => {
           res = res.concat(response);
