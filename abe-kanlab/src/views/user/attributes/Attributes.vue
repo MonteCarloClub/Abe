@@ -8,13 +8,15 @@
   >
     <Mine key="0" data-index="0"/>
     <Applications key="2" data-index="0.3"/>
-    <Approvals key="1" data-index="0.6"/>
+    <Approvals key="1" data-index="0.5"/>
+    <History key="3" data-index="0.6"/>
   </transition-group>
 </template>
 
 <script>
 // @ is an alias to /src
 import Mine from "./_Mine.vue";
+import History from "./_History.vue";
 import Approvals from "./_Approvals.vue";
 import Applications from "./_Applications.vue";
 
@@ -22,6 +24,7 @@ export default {
   name: "Attributes",
   components: {
     Mine,
+    History,
     Approvals,
     Applications,
   },

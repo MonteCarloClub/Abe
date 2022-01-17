@@ -26,6 +26,7 @@
         <el-descriptions-item label="版本">{{ detail.version }}</el-descriptions-item>
         <el-descriptions-item label="设备">{{ detail.ABSUID }} </el-descriptions-item>
         <el-descriptions-item label="证书序号"> {{ detail.serialNumber }} </el-descriptions-item>
+        <el-descriptions-item label="属性"> {{ detail.ABSAttribute }} </el-descriptions-item>
         <el-descriptions-item label="签名人">{{ detail.issuer }}</el-descriptions-item>
         <el-descriptions-item label="签名">{{ detail.signatureName }}</el-descriptions-item>
         <el-descriptions-item label="优先级">{{ detail.validityPeriod }}</el-descriptions-item>
@@ -36,10 +37,13 @@
       </div>
     </el-dialog>
 
-    <el-dialog title="申请证书" :visible.sync="applyFormVisible">
+    <el-dialog title="证书申请" :visible.sync="applyFormVisible">
       <el-form ref="applyForm" :rules="applyRules" :model="applyCert" label-width="80px">
         <el-form-item prop="uid" label="UID">
           <el-input v-model="applyCert.uid"></el-input>
+        </el-form-item>
+        <el-form-item prop="attribute" label="属性">
+          <el-input v-model="applyCert.attribute"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer">
@@ -68,6 +72,7 @@ export default {
 
       applyRules: {
         uid: [{ required: true, trigger: "blur", message: "UID 不能为空" }],
+        attribute: [{ required: true, trigger: "blur", message: "属性不能为空" }],
       },
 
       searchInput: "",
@@ -124,10 +129,10 @@ export default {
     applyForCert() {
       this.$refs.applyForm.validate((valid) => {
         if (!valid) return;
-        const { uid } = this.applyCert;
+        const { uid, attribute } = this.applyCert;
 
         certApi
-          .apply(uid)
+          .apply(uid, attribute)
           .then(() => {
             this.$message({
               message: "申请成功",

@@ -95,12 +95,12 @@ export const certApi = {
      * @param {*} _data 
      * @returns Promise
      */
-    apply: function (uid) {
+    apply: function (uid, attribute) {
         return new Promise((resolve, reject) => {
             certService.request({
                 url: '/ApplyForABSCertificate',
                 method: 'get',
-                params: {uid}
+                params: {uid, attribute}
             }).then(response => {
                 if (response.status === 200) {
                     resolve(response.data)
