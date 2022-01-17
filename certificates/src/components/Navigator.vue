@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import { getters } from "@/store/store";
 import Logo from "@/components/Logo.vue";
 
 export default {
@@ -28,8 +27,6 @@ export default {
   components: { Logo },
 
   computed: {
-    login: getters.isLogin,
-    userName: getters.userName,
   },
 
   methods: {
