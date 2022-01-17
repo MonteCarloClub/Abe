@@ -70,29 +70,7 @@ export default {
 
   data() {
     return {
-      attributes: [
-        {
-          date: "2016-05-02",
-          name: "属性",
-          address: "上海市普陀区金沙江路 1518 弄",
-          approvaller: "小明",
-          status: "已通过",
-        },
-        {
-          date: "2016-05-04",
-          name: "属性",
-          address: "上海市普陀区金沙江路 1517 弄",
-          approvaller: "小明",
-          status: "被拒绝",
-        },
-        {
-          date: "2016-05-04",
-          name: "属性",
-          address: "上海市普陀区金沙江路 1517 弄",
-          approvaller: "小明",
-          status: "未处理",
-        },
-      ],
+      attributes: [],
       statusTypes: {
         已通过: "success",
         被拒绝: "danger",

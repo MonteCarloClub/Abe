@@ -29,6 +29,28 @@ const routes = [
     component: () => import('../views/AllFiles.vue'),
   },
   {
+    path: '/certificates',
+    name: 'certificates',
+    component: () => import('../views/certificates/Certificates.vue'),
+    children: [
+      {
+        path: '',
+        name: 'list',
+        component: () => import('../views/certificates/_List.vue'),
+      },
+      {
+        path: 'search',
+        name: 'search',
+        component: () => import('../views/certificates/_Search.vue'),
+      },
+      {
+        path: 'apply',
+        name: 'apply',
+        component: () => import('../views/certificates/_Apply.vue'),
+      },
+    ]
+  },
+  {
     path: '/user',
     name: 'user',
     component: () => import('../views/user/User.vue'),

@@ -180,5 +180,44 @@ export const fileApi = {
                 }
             }).catch(reject)
         })
+    },
+
+    /**
+     * 下载密文哈希
+     * @param {*} _data 参数
+     * @returns Promise
+     */
+    downloadCipher: function ({ userName, fileName, sharedUser }) {
+        // userName   用户名
+        // fileName   解密文件名
+        // sharedUser 文件共享者
+        const data = {
+            userName,
+            fileName,
+            sharedUser,
+        }
+
+        return new Promise((resolve, reject) => {
+            axios.request({
+                baseURL: process.env.NODE_ENV === "development" ? process.env.VUE_APP_DEV_URL : process.env.VUE_APP_PRO_URL,
+                url: '/content/cipher',
+                method: 'get',
+                data,
+                params: data,
+                responseType: 'blob', // important
+            }).then(response => {
+                // {
+                //     "code":200     200, 成功; 其他，失败
+                //     "msg":null,    描述
+                //     "data":content 共享文件内容
+                // }
+                if (response.status === 200) {
+                    resolve(response.data)
+                }
+                else {
+                    reject(response)
+                }
+            }).catch(reject)
+        })
     }
 }

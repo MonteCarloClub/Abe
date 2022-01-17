@@ -29,7 +29,7 @@ import { FileDownloader } from "@/mixins/Download";
 import { FilterEmpty } from "@/mixins/FilterEmpty";
 
 export default {
-  name: "Mine",
+  name: "AllFiles",
   components: {
     Card,
     FilesTable

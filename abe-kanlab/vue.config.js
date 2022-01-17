@@ -10,6 +10,13 @@ module.exports = (options = {}) => ({
         pathRewrite: {
           '^/api': ''
         }
+      },
+      '/cert/': {
+        target: 'https://dpki.hifool.cn',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/cert': ''
+        }
       }
     },
   },
