@@ -8,13 +8,10 @@ const certService = axios.create({
 // request interceptor
 certService.interceptors.request.use(
     config => {
-        // config contains all options for a request, modify config before send this request
-        // const { url, data, headers, method } = config
-        config.headers['Access-Control-Allow-Origin'] = "localhost:8081"
+        config.headers['Access-Control-Allow-Origin'] = "*"
         config.headers['Access-Control-Allow-Methods'] = "GET, POST, PATCH, PUT, DELETE, OPTIONS"
         config.headers['Access-Control-Allow-Headers'] = "Origin, Content-Type, X-Auth-Token"
         config.crossdomain = true
-        // console.log('[interceptors.request]', config);
         return config
     },
     error => {

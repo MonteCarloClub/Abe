@@ -6,11 +6,7 @@
         <el-table-column show-overflow-tooltip prop="fromUid" label="操作用户"> </el-table-column>
         <el-table-column show-overflow-tooltip prop="attrName" label="属性名称"> </el-table-column>
         <el-table-column show-overflow-tooltip prop="operation" label="操作"> </el-table-column>
-        <el-table-column label="操作时间" prop="createTime" width="160">
-          <template slot-scope="scope">
-            {{ formatTime(scope.row.timeStamp) }}
-          </template>
-        </el-table-column>
+        <el-table-column sortable prop="timeStamp" label="操作时间"></el-table-column>
       </el-table>
     </div>
     <el-empty v-else :image-size="100" description="还没有记录"></el-empty>

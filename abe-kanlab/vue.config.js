@@ -3,6 +3,7 @@ module.exports = (options = {}) => ({
   devServer: {
     host: 'localhost',
     port: 8081,
+    disableHostCheck: true,   // That solved it
     proxy: {
       '/api/': {
         target: 'http://58.247.201.96:8080',
