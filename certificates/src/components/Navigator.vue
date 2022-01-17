@@ -3,6 +3,7 @@
     <div class="logo">
       <router-link to="/"> <Logo /> </router-link>
     </div>
+    <div class="menu"></div>
     <div class="options">
       <router-link to="/">
         <button> 证书管理 </button>

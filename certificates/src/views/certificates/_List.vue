@@ -45,7 +45,17 @@
         <el-form-item prop="attribute" label="属性">
           <el-input v-model="applyCert.attribute"></el-input>
         </el-form-item>
+        <div v-if="applyRes">
+          <el-form-item size="mini" label="版本">{{ applyRes.version }}</el-form-item>
+          <el-form-item size="mini" label="设备">{{ applyRes.ABSUID }} </el-form-item>
+          <el-form-item size="mini" label="证书序号"> {{ applyRes.serialNumber }} </el-form-item>
+          <el-form-item size="mini" label="属性"> {{ applyRes.ABSAttribute }} </el-form-item>
+          <el-form-item size="mini" label="签名人">{{ applyRes.issuer }}</el-form-item>
+          <el-form-item size="mini" label="签名">{{ applyRes.signatureName }}</el-form-item>
+          <el-form-item size="mini" label="优先级">{{ applyRes.validityPeriod }}</el-form-item>
+        </div>
       </el-form>
+
       <div slot="footer">
         <el-button @click="applyFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="applyForCert">申 请</el-button>
@@ -76,6 +86,7 @@ export default {
       },
 
       searchInput: "",
+      applyRes: false,
     };
   },
 
@@ -130,10 +141,13 @@ export default {
       this.$refs.applyForm.validate((valid) => {
         if (!valid) return;
         const { uid, attribute } = this.applyCert;
+        this.applyRes = false;
 
         certApi
           .apply(uid, attribute)
-          .then(() => {
+          .then((item) => {
+            item.certificate["absSignature"] = item.absSignature;
+            this.applyRes = item.certificate;
             this.$message({
               message: "申请成功",
               duration: 2 * 1000,
@@ -145,9 +159,6 @@ export default {
               message: e.message,
               type: "error",
             });
-          })
-          .finally(() => {
-            this.applyFormVisible = false;
           });
       });
     },
