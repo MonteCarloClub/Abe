@@ -15,7 +15,7 @@
       <el-table-column show-overflow-tooltip label="证书序号" prop="serialNumber" />
       <el-table-column label="操作" align="right">
         <template slot-scope="scope">
-          <el-button size="mini" type="warning" @click="revoke(scope)" plain> 撤销属性 </el-button>
+          <el-button size="mini" type="warning" @click="revoke(scope)" plain> 撤销证书 </el-button>
           <el-button size="mini" type="info" @click="detailInfo(scope.row)"> 详细信息 </el-button>
         </template>
       </el-table-column>
