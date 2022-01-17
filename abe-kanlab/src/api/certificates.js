@@ -5,6 +5,25 @@ const certService = axios.create({
     baseURL: process.env.NODE_ENV === "development" ? '/cert' : CERT_HOST,
 })
 
+// request interceptor
+certService.interceptors.request.use(
+    config => {
+        // config contains all options for a request, modify config before send this request
+        // const { url, data, headers, method } = config
+        config.headers['Access-Control-Allow-Origin'] = "localhost:8081"
+        config.headers['Access-Control-Allow-Methods'] = "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+        config.headers['Access-Control-Allow-Headers'] = "Origin, Content-Type, X-Auth-Token"
+        config.crossdomain = true
+        // console.log('[interceptors.request]', config);
+        return config
+    },
+    error => {
+        // do something with request error
+        console.log('[request error]', error)
+        return Promise.reject(error)
+    }
+)
+
 export const certApi = {
     /**
      * 获取证书列表

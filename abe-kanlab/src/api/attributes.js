@@ -150,8 +150,8 @@ export const attrApi = {
      * @param {*} _data 参数
      * @returns Promise
      */
-    applications: function ({to, role, user, status}) {
-        const _data = {to, role, user, status}
+    applications: function ({ to, role, user, status }) {
+        const _data = { to, role, user, status }
         // 以下参数放在 headers 中
         // toId     被申请用户/组织名
         // type     申请类型（用户属性/组织属性） （Int）0 用户；1 组织
@@ -296,6 +296,92 @@ export const attrApi = {
                 //         "UserType":"user",
                 //         "Channel":"myc"
                 //     }
+                // }
+                if (response.code === 200) {
+                    resolve(response.data)
+                }
+                else {
+                    reject(response)
+                }
+            }).catch(reject)
+        })
+    },
+
+    /**
+     * 撤销属性
+     * @param {*} _data 参数
+     * @returns Promise
+     */
+    revoke: function ({
+        userName,
+        toUserName,
+        attrName,
+        remark,
+    }) {
+        // userName   用户名
+        // toUserName 被撤销的用户名
+        // attrName   属性名
+        // remark     备注           可无
+        const data = {
+            userName,
+            toUserName,
+            attrName,
+            remark,
+        }
+
+        return new Promise((resolve, reject) => {
+            request({
+                url: '/user/attr/revoke',
+                method: 'post',
+                data,
+                params: data
+            }).then(response => {
+                // {
+                //     "code":200,      //200，成功；其他，失败
+                //     "msg":"success", //描述
+                //     "data":null
+                // }
+                if (response.code === 200) {
+                    resolve(response.data)
+                }
+                else {
+                    reject(response)
+                }
+            }).catch(reject)
+        })
+    },
+
+    /**
+     * 查询属性历史
+     * @param {*} _data 参数
+     * @returns Promise
+     */
+    history: function (userName) {
+        // userName   用户名
+        const data = {
+            userName
+        }
+
+        return new Promise((resolve, reject) => {
+            request({
+                url: '/user/attr/history',
+                method: 'post',
+                data,
+                params: data
+            }).then(response => {
+                // {
+                //     "code":200,
+                //     "message":null,
+                //     "data":[
+                //         {
+                //           "uid":"someone2",                // 当前用户
+                //             "fromUid":"someone",           // 操作用户
+                //             "attrName":"someone:family",   // 属性名称
+                //             "operation":"agree"或"revoke", // 操作：授权或撤销
+                //             "timeStamp":"xxx",             // 操作时间
+                //         },
+                //         ...
+                //     ]
                 // }
                 if (response.code === 200) {
                     resolve(response.data)

@@ -19,6 +19,7 @@
 
           <el-table-column label="操作" width="160">
             <template slot-scope="scope">
+              <el-button size="mini" type="warning" @click="revoke(scope.row)"> 撤销 </el-button>
               <el-button size="mini" type="success" @click="agree(scope.row, true)">
                 同意
               </el-button>
@@ -85,7 +86,7 @@ export default {
     const status = "ALL";
     let res = [];
 
-    Promise.all(query.map(({to, role}) => attrApi.applications({ to, role, status })))
+    Promise.all(query.map(({ to, role }) => attrApi.applications({ to, role, status })))
       .then((responses) => {
         responses.forEach((response) => {
           res = res.concat(response);
@@ -138,6 +139,30 @@ export default {
         })
         .finally(() => {
           this.dialogFormVisible = false;
+        });
+    },
+    revoke(application) {
+      const userName = getters.userName();
+      const { attrName, fromUid } = application;
+      attrApi
+        .revoke({
+          userName,
+          toUserName: fromUid,
+          attrName
+        })
+        .then(() => {
+          this.$message({
+            message: "撤销成功",
+            duration: 2 * 1000,
+            type: "success",
+          });
+        })
+        .catch((e) => {
+          this.$message({
+            message: e.message,
+            duration: 2 * 1000,
+            type: "error",
+          });
         });
     },
   },

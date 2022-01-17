@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card title="属性申请">
+    <Card title="属性授权">
       <template v-slot:op>
         <el-button size="small" slot="append" @click="syncApplications"> 同步属性 </el-button>
         <el-button size="small" slot="append" type="primary" @click="dialogFormVisible = true">
