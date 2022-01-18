@@ -26,7 +26,7 @@
         <el-descriptions-item label="版本">{{ detail.version }}</el-descriptions-item>
         <el-descriptions-item label="设备">{{ detail.ABSUID }} </el-descriptions-item>
         <el-descriptions-item label="证书序号"> {{ detail.serialNumber }} </el-descriptions-item>
-        <el-descriptions-item label="属性"> {{ detail.ABSAttribute }} </el-descriptions-item>
+        <el-descriptions-item label="标签"> {{ detail.ABSAttribute }} </el-descriptions-item>
         <el-descriptions-item label="签名人">{{ detail.issuer }}</el-descriptions-item>
         <el-descriptions-item label="签名">{{ detail.signatureName }}</el-descriptions-item>
         <el-descriptions-item label="优先级">{{ detail.validityPeriod }}</el-descriptions-item>
@@ -42,14 +42,14 @@
         <el-form-item prop="uid" label="UID">
           <el-input v-model="applyCert.uid"></el-input>
         </el-form-item>
-        <el-form-item prop="attribute" label="属性">
+        <el-form-item prop="attribute" label="标签">
           <el-input v-model="applyCert.attribute"></el-input>
         </el-form-item>
         <div v-if="applyRes">
           <el-form-item size="mini" label="版本">{{ applyRes.version }}</el-form-item>
           <el-form-item size="mini" label="设备">{{ applyRes.ABSUID }} </el-form-item>
           <el-form-item size="mini" label="证书序号"> {{ applyRes.serialNumber }} </el-form-item>
-          <el-form-item size="mini" label="属性"> {{ applyRes.ABSAttribute }} </el-form-item>
+          <el-form-item size="mini" label="标签"> {{ applyRes.ABSAttribute }} </el-form-item>
           <el-form-item size="mini" label="签名人">{{ applyRes.issuer }}</el-form-item>
           <el-form-item size="mini" label="签名">{{ applyRes.signatureName }}</el-form-item>
           <el-form-item size="mini" label="优先级">{{ applyRes.validityPeriod }}</el-form-item>
@@ -82,7 +82,7 @@ export default {
 
       applyRules: {
         uid: [{ required: true, trigger: "blur", message: "UID 不能为空" }],
-        attribute: [{ required: true, trigger: "blur", message: "属性不能为空" }],
+        attribute: [{ required: true, trigger: "blur", message: "标签不能为空" }],
       },
 
       searchInput: "",
