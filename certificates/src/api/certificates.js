@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const CERT_HOST = "http://127.0.0.1:8001"
+const CERT_HOST = "/"
 const certService = axios.create({
     baseURL: process.env.NODE_ENV === "development" ? '/cert' : CERT_HOST,
 })

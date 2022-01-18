@@ -23,7 +23,7 @@
       </template>
     </el-table-column>
 
-    <el-table-column label="操作" align="right">
+    <el-table-column label="操作" align="right" width="200">
       <template slot-scope="scope">
         <el-button size="mini" type="success" @click="decryDownload(scope.row)">
           解密下载
