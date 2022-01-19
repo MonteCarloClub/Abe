@@ -42,17 +42,12 @@ export default {
   margin: auto;
 }
 
-#app div {
-  background-color: var(--bg-color-0, rgb(124, 124, 124));
-}
-
 .el-header {
   top: 0;
   z-index: 100;
   position: sticky;
   padding: 0 !important;
   transition: ease 0.6s all;
-  background-color: white;
   box-shadow: 0 4px 12px #00000014, 0 0 1px #0100001a;
 }
 </style>

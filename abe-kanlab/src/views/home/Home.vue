@@ -28,8 +28,7 @@ export default {
     return {};
   },
   methods: {
-    handleScroll: throttle(function () {
-    }, 300),
+    handleScroll: throttle(function () {}, 300),
   },
   created() {
     // 创建该组件时，监听滚动函数
@@ -44,11 +43,11 @@ export default {
 
 <style scoped>
 section:nth-child(even) {
-  background-color: var(--body-background, #f1f1f2);
+  background-color: var(--bg-color-0, #081326);
 }
 
 section:nth-child(odd) {
-  background-color: white;
+  background-color: var(--bg-color-1, #091629);
 }
 </style>
 
@@ -62,6 +61,10 @@ section:nth-child(odd) {
 
 .section {
   padding: 36px var(--body-margin, 32px);
+}
+
+.section > div{
+  filter: invert(1);
 }
 
 .entry-title {

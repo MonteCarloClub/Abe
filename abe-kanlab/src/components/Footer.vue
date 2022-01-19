@@ -32,7 +32,7 @@ export default {
   padding: 36px var(--body-margin, 32px);
   font-size: 12px;
   color: gray;
-  background-color: hsl(210, 8%, 15%);
+  background-color: var(--bg-color-1, #091629);
   display: grid;
   gap: 24px;
   grid-template-columns: 50% 50%;

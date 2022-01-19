@@ -1,5 +1,4 @@
 :root {
-    --body-background: #f1f1f2;
     --body-margin: 32px;
     --row-distance: 10px;
     --content-padding: 16px;
@@ -8,17 +7,16 @@
     --ft-color-0: #d4d4d4;
     --ft-color-1: white;
 
-    --bg-color-0: rgb(124, 124, 124);
-    --bg-color-1: #6d6d6d;
+    --bg-color-0: #081326;
+    --bg-color-1: #091629;
 }
 
 html {
-    background-color: #3b3b3b;
+    background-color: var(--bg-color-0, rgb(124, 124, 124));
 }
 
 body {
     margin: 0;
-    background-color: var(--body-background, #f1f1f2);
 }
 
 .main-content {

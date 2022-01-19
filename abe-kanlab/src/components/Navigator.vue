@@ -50,6 +50,7 @@ export default {
   height: var(--header-height, 60px);
   padding: 0 var(--body-margin, 32px);
   display: flex;
+  background-color: var(--bg-color-1, #6d6d6d);
 }
 
 a {
