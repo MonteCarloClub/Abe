@@ -176,7 +176,6 @@ export default {
 <style scoped>
 .content {
   padding: 16px;
-  background-color: white;
 }
 
 .wer {

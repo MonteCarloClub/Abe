@@ -4,6 +4,16 @@
     --row-distance: 10px;
     --content-padding: 16px;
     --header-height: 60px;
+
+    --ft-color-0: #d4d4d4;
+    --ft-color-1: white;
+
+    --bg-color-0: rgb(124, 124, 124);
+    --bg-color-1: #6d6d6d;
+}
+
+html {
+    background-color: #3b3b3b;
 }
 
 body {
@@ -13,31 +23,4 @@ body {
 
 .main-content {
     padding: var(--content-padding, 16px);
-}
-
-.transparent-header {
-    color: white;
-    box-shadow: none !important;
-    background-color: transparent !important;
-}
-
-.transparent-header:hover {
-    color: black !important;
-    background-color: white !important;
-    box-shadow: 0 4px 12px #00000014, 0 0 1px #0100001a !important;
-}
-
-.transparent-header:hover button {
-    color: #767676 !important;
-    border-color: #76767699 !important;
-}
-
-.transparent-header button {
-    color: white !important;
-    border-color: #eee9 !important;
-}
-
-.transparent-header button:hover {
-    color: black !important;
-    border-color: #767676 !important;
 }
