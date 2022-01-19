@@ -70,12 +70,12 @@ export const certApi = {
      * @param {*} _data 
      * @returns Promise
      */
-    certInfo: function (no) {
+    certInfo: function (uid) {
         return new Promise((resolve, reject) => {
             certService.request({
-                url: '/GetCertificate',
+                url: '/GetCertificateByUID',
                 method: 'get',
-                params: {no}
+                params: {uid}
             }).then(response => {
                 if (response.status === 200) {
                     resolve(response.data)

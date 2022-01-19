@@ -2,7 +2,7 @@
   <div class="content">
     <div class="wer">
       <div class="wer-left">
-        <el-input placeholder="证书序号" v-model="searchInput" />
+        <el-input placeholder="设备名称" v-model="searchInput" />
       </div>
       <div>
         <el-button @click="searchCert"> 查询证书 </el-button>
