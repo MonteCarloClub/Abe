@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const CERT_HOST = "https://dpki.hifool.cn"
+const CERT_HOST = "/"
 const certService = axios.create({
     baseURL: process.env.NODE_ENV === "development" ? '/cert' : CERT_HOST,
 })
@@ -70,12 +70,12 @@ export const certApi = {
      * @param {*} _data 
      * @returns Promise
      */
-    certInfo: function (no) {
+    certInfo: function (uid) {
         return new Promise((resolve, reject) => {
             certService.request({
-                url: '/GetCertificate',
+                url: '/GetCertificateByUID',
                 method: 'get',
-                params: {no}
+                params: {uid}
             }).then(response => {
                 if (response.status === 200) {
                     resolve(response.data)

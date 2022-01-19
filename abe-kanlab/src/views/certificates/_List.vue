@@ -2,7 +2,7 @@
   <div class="content">
     <div class="wer">
       <div class="wer-left">
-        <el-input placeholder="证书序号" v-model="searchInput" />
+        <el-input placeholder="设备名称" v-model="searchInput" />
       </div>
       <div>
         <el-button @click="searchCert"> 查询证书 </el-button>
@@ -26,7 +26,7 @@
         <el-descriptions-item label="版本">{{ detail.version }}</el-descriptions-item>
         <el-descriptions-item label="设备">{{ detail.ABSUID }} </el-descriptions-item>
         <el-descriptions-item label="证书序号"> {{ detail.serialNumber }} </el-descriptions-item>
-        <el-descriptions-item label="属性"> {{ detail.ABSAttribute }} </el-descriptions-item>
+        <el-descriptions-item label="标签"> {{ detail.ABSAttribute }} </el-descriptions-item>
         <el-descriptions-item label="签名人">{{ detail.issuer }}</el-descriptions-item>
         <el-descriptions-item label="签名">{{ detail.signatureName }}</el-descriptions-item>
         <el-descriptions-item label="优先级">{{ detail.validityPeriod }}</el-descriptions-item>
@@ -42,10 +42,20 @@
         <el-form-item prop="uid" label="UID">
           <el-input v-model="applyCert.uid"></el-input>
         </el-form-item>
-        <el-form-item prop="attribute" label="属性">
+        <el-form-item prop="attribute" label="标签">
           <el-input v-model="applyCert.attribute"></el-input>
         </el-form-item>
+        <div v-if="applyRes">
+          <el-form-item size="mini" label="版本">{{ applyRes.version }}</el-form-item>
+          <el-form-item size="mini" label="设备">{{ applyRes.ABSUID }} </el-form-item>
+          <el-form-item size="mini" label="证书序号"> {{ applyRes.serialNumber }} </el-form-item>
+          <el-form-item size="mini" label="标签"> {{ applyRes.ABSAttribute }} </el-form-item>
+          <el-form-item size="mini" label="签名人">{{ applyRes.issuer }}</el-form-item>
+          <el-form-item size="mini" label="签名">{{ applyRes.signatureName }}</el-form-item>
+          <el-form-item size="mini" label="优先级">{{ applyRes.validityPeriod }}</el-form-item>
+        </div>
       </el-form>
+
       <div slot="footer">
         <el-button @click="applyFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="applyForCert">申 请</el-button>
@@ -72,10 +82,11 @@ export default {
 
       applyRules: {
         uid: [{ required: true, trigger: "blur", message: "UID 不能为空" }],
-        attribute: [{ required: true, trigger: "blur", message: "属性不能为空" }],
+        attribute: [{ required: true, trigger: "blur", message: "标签不能为空" }],
       },
 
       searchInput: "",
+      applyRes: false,
     };
   },
 
@@ -130,10 +141,13 @@ export default {
       this.$refs.applyForm.validate((valid) => {
         if (!valid) return;
         const { uid, attribute } = this.applyCert;
+        this.applyRes = false;
 
         certApi
           .apply(uid, attribute)
-          .then(() => {
+          .then((item) => {
+            item.certificate["absSignature"] = item.absSignature;
+            this.applyRes = item.certificate;
             this.$message({
               message: "申请成功",
               duration: 2 * 1000,
@@ -145,9 +159,6 @@ export default {
               message: e.message,
               type: "error",
             });
-          })
-          .finally(() => {
-            this.applyFormVisible = false;
           });
       });
     },

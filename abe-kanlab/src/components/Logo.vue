@@ -29,7 +29,7 @@ export default {
 
 .logo > div {
   font-family: MoonDance;
-  font-size: 36px;
+  font-size: 24px;
   font-weight: bold;
   margin-left: 12px;
 }
