@@ -8,7 +8,7 @@
         </el-button>
       </template>
       <div v-if="appliedAttrMap">
-        <el-table :data="formatAttributes(appliedAttrMap)" stripe style="width: 100%">
+        <el-table :data="formatAttributes(appliedAttrMap)" style="width: 100%">
           <el-table-column show-overflow-tooltip prop="name" label="属性名"> </el-table-column>
           <el-table-column show-overflow-tooltip prop="value" label="属性公钥"> </el-table-column>
         </el-table>

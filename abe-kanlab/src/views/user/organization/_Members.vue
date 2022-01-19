@@ -1,6 +1,6 @@
 <template>
   <Card title="组织成员">
-    <el-table :data="members(info)" stripe style="width: 100%">
+    <el-table :data="members(info)" style="width: 100%">
       <el-table-column show-overflow-tooltip prop="name" label="名称"> </el-table-column>
       <el-table-column prop="value" label="状态">
         <template slot-scope="scope">

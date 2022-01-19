@@ -30,7 +30,7 @@
         </el-table-column>
       </el-table>
 
-      <el-table :data="members(attr)" stripe style="width: 100%">
+      <el-table :data="members(attr)" style="width: 100%">
         <el-table-column show-overflow-tooltip prop="name" label="小组成员"> </el-table-column>
         <el-table-column prop="value" label="是否同意该属性" align="right">
           <template slot-scope="scope">

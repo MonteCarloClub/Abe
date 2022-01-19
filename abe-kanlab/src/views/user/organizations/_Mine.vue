@@ -8,7 +8,7 @@
         </el-button>
       </template>
       <div v-if="OPKMap">
-        <el-table :data="formatOrganization(OPKMap)" stripe style="width: 100%">
+        <el-table :data="formatOrganization(OPKMap)" style="width: 100%">
           <el-table-column show-overflow-tooltip prop="name" label="组织名称" width="180"> </el-table-column>
           <el-table-column show-overflow-tooltip prop="value" label="组织公钥">
             <template slot-scope="scope">

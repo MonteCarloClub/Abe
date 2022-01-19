@@ -2,7 +2,7 @@
   <div>
     <Card title="属性审批">
       <div v-if="attributes.length">
-        <el-table :data="attributes" stripe style="width: 100%">
+        <el-table :data="attributes" style="width: 100%">
           <el-table-column prop="isPublic" label="" width="50">
             <template slot-scope="scope">
               {{ scope.row.isPublic ? "公开" : "私有" }}

@@ -1,6 +1,6 @@
 <template>
   <div class="logo">
-    <div>Data Share</div>
+    <div>数据共享交换平台</div>
   </div>
 </template>
 
