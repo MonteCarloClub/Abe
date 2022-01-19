@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header :class="$route.meta.headerClass">
+      <el-header>
         <Navigator />
       </el-header>
       <!-- 内容，其中 User 页面被缓存 -->
@@ -40,6 +40,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   min-width: 900px;
   margin: auto;
+}
+
+#app div {
+  background-color: var(--bg-color-0, rgb(124, 124, 124));
 }
 
 .el-header {

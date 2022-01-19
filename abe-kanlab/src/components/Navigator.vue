@@ -21,7 +21,7 @@
         <button>{{ userName }}</button>
       </router-link>
       <router-link v-else to="/login">
-        <button class="login-button">登录 / 注册</button>
+        <button>登录 / 注册</button>
       </router-link>
     </div>
   </div>
@@ -58,14 +58,16 @@ a {
 
 a,
 a:visited,
-a:hover,
 a:active {
-  color: inherit;
+  color: var(--ft-color-0, #ececec);
+}
+
+a:hover {
+  color: var(--ft-color-1, white);
 }
 
 .logo {
   flex: none;
-  color: black;
 }
 
 .menu {
@@ -82,13 +84,13 @@ a:active {
 }
 
 button {
-  color: #767676;
+  color: var(--ft-color-0, #ececec);
   border: none;
   height: 32px;
   font-size: 14px;
   padding: 0 11px;
   line-height: 30px;
-  border-radius: 4px;
+  border-width: 0;
   display: inline-block;
   text-align: center;
   text-decoration: none;
@@ -101,14 +103,6 @@ button {
 }
 
 button:hover {
-  color: black;
-}
-
-.login-button {
-  border: 1px solid #76767699;
-}
-
-.login-button:hover {
-  border: 1px solid #767676;
+  color: var(--ft-color-1, white);;
 }
 </style>

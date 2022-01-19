@@ -25,9 +25,8 @@ export default {
 <style scoped>
 .card {
   padding: var(--content-padding, 16px);
-  background: #fff;
-  /* border: 1px solid #e3e4e6;
-  border-radius: 4px; */
+  background-color: var(--bg-color-1);
+  color: white;
 }
 
 .card:hover {

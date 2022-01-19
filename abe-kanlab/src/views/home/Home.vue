@@ -29,12 +29,6 @@ export default {
   },
   methods: {
     handleScroll: throttle(function () {
-      const c = this.$route.meta.headerClass;
-      if (window.scrollY > 60) {
-        document.querySelector(".el-header").classList.remove(c);
-      } else {
-        document.querySelector(".el-header").classList.add(c);
-      }
     }, 300),
   },
   created() {
@@ -49,10 +43,6 @@ export default {
 </script>
 
 <style scoped>
-.home {
-  margin-top: calc(0px - var(--header-height, 60px));
-}
-
 section:nth-child(even) {
   background-color: var(--body-background, #f1f1f2);
 }

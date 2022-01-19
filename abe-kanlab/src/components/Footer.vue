@@ -3,7 +3,6 @@
     <div class="footer-content">
       <div class="logo-box"><Logo /></div>
       <div class="introduction">
-        <div>应用介绍文字</div>
         <div>备案号</div>
       </div>
       <div class="links">友情链接</div>

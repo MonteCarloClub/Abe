@@ -1,6 +1,5 @@
 <template>
   <div class="logo">
-    <img alt="Kanlab logo" src="@/assets/images/logo.png" />
     <div>Data Share</div>
   </div>
 </template>
