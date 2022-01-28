@@ -5,7 +5,7 @@ import router from './router'
 // element-ui 的组件库
 import ElementUI from 'element-ui';
 // import 'element-ui/lib/theme-chalk/index.css';
-import './assets/theme/index.css';
+import './assets/theme-light-blue/index.css';
 Vue.use(ElementUI);
 
 // 路由层面的权限控制

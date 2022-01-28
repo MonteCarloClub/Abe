@@ -18,6 +18,10 @@
             <el-input v-model="signup.name" placeholder="请输入用户名"></el-input>
           </el-form-item>
 
+          <el-form-item label="手机号" prop="phone">
+            <el-input v-model="signup.phone" placeholder="请输入手机号"></el-input>
+          </el-form-item>
+
           <el-form-item label="密码" prop="password">
             <el-input v-model="signup.password" placeholder="请输入密码" show-password></el-input>
           </el-form-item>
@@ -41,7 +45,7 @@
             </el-button>
           </el-form-item>
         </el-form>
-        <el-checkbox v-model="agree">我自愿承担使用本系统过程中可能出现的风险</el-checkbox>
+        <el-checkbox class="abc" v-model="agree">我自愿由本系统生成私密信息</el-checkbox>
       </el-card>
     </div>
   </div>
@@ -67,6 +71,7 @@ export default {
         password: [{ required: true, trigger: "blur", message: "密码不能为空" }],
         role: [{ required: true, trigger: "blur", message: "请勾选用户角色" }],
         channel: [{ required: true, trigger: "blur", message: "请输入用户所在通道" }],
+        phone: [{ required: true, trigger: "blur", message: "请输入用户的手机号" }],
       },
       userRoles: [
         {
@@ -74,7 +79,7 @@ export default {
           name: "user",
         },
         {
-          label: "机构用户",
+          label: "企业用户",
           name: "org",
         },
       ],
@@ -139,5 +144,13 @@ export default {
   font-size: 14px;
   color: #606266;
   font-weight: 500;
+}
+
+.el-form-item {
+  margin-bottom: 2px;
+}
+
+.abc {
+  margin-top: 10px;
 }
 </style>

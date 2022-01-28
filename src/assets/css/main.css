@@ -4,11 +4,11 @@
     --content-padding: 16px;
     --header-height: 60px;
 
-    --ft-color-0: #d4d4d4;
-    --ft-color-1: white;
+    --ft-color-0: #303030;
+    --ft-color-1: #000000;
 
-    --bg-color-0: #081326;
-    --bg-color-1: #091629;
+    --bg-color-0: #c2ddff;
+    --bg-color-1: #D3E7FF;
 }
 
 html {

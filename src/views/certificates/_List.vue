@@ -2,16 +2,16 @@
   <div class="content">
     <div class="wer">
       <div class="wer-left">
-        <el-input placeholder="设备名称" v-model="searchInput" />
+        <el-input placeholder="用户名称" v-model="searchInput" />
       </div>
       <div>
         <el-button @click="searchCert"> 查询证书 </el-button>
-        <el-button type="success" @click="applyFormVisible = true"> 证书申请 </el-button>
+        <el-button type="primary" @click="applyFormVisible = true"> 证书申请 </el-button>
       </div>
     </div>
 
     <el-table :data="certificates" :empty-text="emptyText">
-      <el-table-column show-overflow-tooltip label="设备名称" prop="ABSUID" />
+      <el-table-column show-overflow-tooltip label="用户名称" prop="ABSUID" />
       <el-table-column show-overflow-tooltip label="证书序号" prop="serialNumber" />
       <el-table-column label="操作" align="right">
         <template slot-scope="scope">
@@ -22,15 +22,7 @@
     </el-table>
 
     <el-dialog title="详细信息" :visible.sync="detailVisible">
-      <el-descriptions :column="1">
-        <el-descriptions-item label="版本">{{ detail.version }}</el-descriptions-item>
-        <el-descriptions-item label="设备">{{ detail.ABSUID }} </el-descriptions-item>
-        <el-descriptions-item label="证书序号"> {{ detail.serialNumber }} </el-descriptions-item>
-        <el-descriptions-item label="标签"> {{ detail.ABSAttribute }} </el-descriptions-item>
-        <el-descriptions-item label="签名人">{{ detail.issuer }}</el-descriptions-item>
-        <el-descriptions-item label="签名">{{ detail.signatureName }}</el-descriptions-item>
-        <el-descriptions-item label="优先级">{{ detail.validityPeriod }}</el-descriptions-item>
-      </el-descriptions>
+      <ObjectForm :obj="detail"/>
 
       <div slot="footer">
         <el-button type="primary" @click="detailVisible = false">确 定</el-button>
@@ -38,21 +30,21 @@
     </el-dialog>
 
     <el-dialog title="证书申请" :visible.sync="applyFormVisible">
-      <el-form ref="applyForm" :rules="applyRules" :model="applyCert" label-width="80px">
-        <el-form-item prop="uid" label="UID">
+      <el-form
+        ref="applyForm"
+        :rules="applyRules"
+        :model="applyCert"
+        label-position="left"
+        label-width="140px"
+      >
+        <el-form-item prop="uid" label="唯一标识参数">
           <el-input v-model="applyCert.uid"></el-input>
         </el-form-item>
-        <el-form-item prop="attribute" label="标签">
+        <el-form-item prop="attribute" label="属性集合">
           <el-input v-model="applyCert.attribute"></el-input>
         </el-form-item>
         <div v-if="applyRes">
-          <el-form-item size="mini" label="版本">{{ applyRes.version }}</el-form-item>
-          <el-form-item size="mini" label="设备">{{ applyRes.ABSUID }} </el-form-item>
-          <el-form-item size="mini" label="证书序号"> {{ applyRes.serialNumber }} </el-form-item>
-          <el-form-item size="mini" label="标签"> {{ applyRes.ABSAttribute }} </el-form-item>
-          <el-form-item size="mini" label="签名人">{{ applyRes.issuer }}</el-form-item>
-          <el-form-item size="mini" label="签名">{{ applyRes.signatureName }}</el-form-item>
-          <el-form-item size="mini" label="优先级">{{ applyRes.validityPeriod }}</el-form-item>
+          <ObjectForm :obj="applyRes"/>
         </div>
       </el-form>
 
@@ -66,10 +58,13 @@
 
 <script>
 import { certApi } from "@/api/certificates";
+import ObjectForm from "@/components/ObjectForm.vue";
 
 export default {
   name: "List",
-  components: {},
+  components: {
+    ObjectForm
+  },
   data() {
     return {
       certificates: [],
@@ -81,8 +76,8 @@ export default {
       applyCert: {},
 
       applyRules: {
-        uid: [{ required: true, trigger: "blur", message: "UID 不能为空" }],
-        attribute: [{ required: true, trigger: "blur", message: "标签不能为空" }],
+        uid: [{ required: true, trigger: "blur", message: "唯一标识参数不能为空" }],
+        attribute: [{ required: true, trigger: "blur", message: "属性集合不能为空" }],
       },
 
       searchInput: "",

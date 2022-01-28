@@ -1,6 +1,6 @@
 <template>
   <div class="logo">
-    <div>数据共享交换平台</div>
+    <div>证书分发与访问控制一体化系统</div>
   </div>
 </template>
 

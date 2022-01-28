@@ -1,27 +1,23 @@
 <template>
   <div class="nav">
-    <div class="logo">
+    <div></div>
+    <div class="title">
       <router-link to="/"> <Logo /> </router-link>
     </div>
-    <div class="menu">
-      <!-- <el-menu mode="horizontal" unique-opened router>
-        <el-menu-item index="/organization"> 组织 </el-menu-item>
-      </el-menu> -->
-    </div>
     <div class="options">
-      <router-link to="/certificates">
-        <button> 证书管理 </button>
+      <router-link to="/user">
+        <button>用户管理</button>
       </router-link>
 
-      <router-link to="/allfiles">
-        <button> 文件仓库 </button>
+      <router-link to="/certificates">
+        <button>属性管理</button>
       </router-link>
 
       <router-link v-if="login" to="/user">
         <button>{{ userName }}</button>
       </router-link>
       <router-link v-else to="/login">
-        <button>登录 / 注册</button>
+        <button>注销</button>
       </router-link>
     </div>
   </div>
@@ -40,8 +36,7 @@ export default {
     userName: getters.userName,
   },
 
-  methods: {
-  },
+  methods: {},
 };
 </script>
 
@@ -49,8 +44,11 @@ export default {
 .nav {
   height: var(--header-height, 60px);
   padding: 0 var(--body-margin, 32px);
-  display: flex;
   background-color: var(--bg-color-1, #6d6d6d);
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(3, 33%);
+  align-content: center;
 }
 
 a {
@@ -71,13 +69,12 @@ a:hover {
   flex: none;
 }
 
-.menu {
-  flex-grow: 1;
+.title {
+  justify-self: center;
 }
 
 .options {
-  display: flex;
-  align-items: center;
+  justify-self: end;
 }
 
 .el-menu {
@@ -104,6 +101,6 @@ button {
 }
 
 button:hover {
-  color: var(--ft-color-1, white);;
+  color: var(--ft-color-1, white);
 }
 </style>
