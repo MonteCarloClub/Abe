@@ -6,7 +6,8 @@
       </div>
       <div>
         <el-button @click="searchCert"> 查询证书 </el-button>
-        <el-button type="primary" @click="applyFormVisible = true"> 证书申请 </el-button>
+        <el-button type="info" @click="applyFormVisible = true"> 证书申请 </el-button>
+        <el-button type="primary" @click="applyAttrFormVisible = true"> 属性申请 </el-button>
       </div>
     </div>
 
@@ -15,7 +16,7 @@
       <el-table-column show-overflow-tooltip label="证书序号" prop="serialNumber" />
       <el-table-column label="操作" align="right">
         <template slot-scope="scope">
-          <el-button size="mini" type="warning" @click="revoke(scope)" plain> 撤销证书 </el-button>
+          <el-button size="mini" type="info" @click="verify(scope)" plain> 验证证书 </el-button>
           <el-button size="mini" type="info" @click="detailInfo(scope.row)"> 详细信息 </el-button>
         </template>
       </el-table-column>
@@ -53,6 +54,28 @@
         <el-button type="primary" @click="applyForCert">申 请</el-button>
       </div>
     </el-dialog>
+
+    <el-dialog title="属性申请" :visible.sync="applyAttrFormVisible">
+      <el-form
+        label-position="left"
+        label-width="140px"
+      >
+        <el-form-item prop="uid" label="属性名">
+          <el-input></el-input>
+        </el-form-item>
+        <el-form-item prop="attribute" label="CA 公钥">
+          <el-input></el-input>
+        </el-form-item>
+        <el-form-item prop="attribute" label="要求字段">
+          <el-input></el-input>
+        </el-form-item>
+      </el-form>
+
+      <div slot="footer">
+        <el-button @click="applyAttrFormVisible = false">取 消</el-button>
+        <el-button type="primary">申 请</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -73,6 +96,7 @@ export default {
       detail: {},
 
       applyFormVisible: false,
+      applyAttrFormVisible: false,
       applyCert: {},
 
       applyRules: {
@@ -129,6 +153,12 @@ export default {
             message: e.message,
             type: "error",
           });
+        });
+    },
+
+    verify() {
+        this.$alert('该证书验证通过，有效期至 2023-01-30', '提示', {
+          confirmButtonText: '确定'
         });
     },
 
