@@ -19,7 +19,7 @@
     </el-carousel>
     <div class="intro">
       <div>
-        <h1>智慧城市数据共享交换</h1>
+        <h1>长三角地区开放教育学分银行</h1>
       </div>
       <router-link v-if="login" to="/user">
         <div class="wrap">

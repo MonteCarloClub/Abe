@@ -1,6 +1,6 @@
 <template>
   <div class="logo">
-    <div>数据共享交换平台</div>
+    <div>多维属性权限管理平台</div>
   </div>
 </template>
 
