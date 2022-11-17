@@ -96,6 +96,7 @@ export default {
       .list()
       .then((res) => {
         this.certificates = res.map((item) => {
+          item = JSON.parse(item)
           item.certificate["absSignature"] = item.absSignature;
           return item.certificate;
         });
