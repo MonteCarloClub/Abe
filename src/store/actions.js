@@ -11,10 +11,10 @@ export const actions = {
      * @param {Object} userInfo 登录所需的用户信息
      * @returns promise
      */
-    login(userInfo) {
-        const { name, password } = userInfo
+    login(userInfo, useCert) {
+        const { name, password, cert } = userInfo
         return new Promise((resolve, reject) => {
-            userApi.login({ name, password })
+            userApi.login({ name, password, cert }, useCert)
                 .then(user => {
                     setToken(`${name}-${password}`)
                     mutations.setUser(user)

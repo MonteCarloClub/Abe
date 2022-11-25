@@ -45,17 +45,21 @@ export const userApi = {
      * @param {Object} _data 用于登录的信息用户名密码
      * @returns 登录成功则返回用户信息
      */
-    login: function (_data) {
+    login: function (_data, useCert = false) {
         // fileName 用户名
         // password 密码
+        // cert     证书
         const data = {
             fileName: _data.name,
             password: _data.password,
+            cert: _data.cert,
         }
 
+        const apiUrl = useCert ? '/dabe/user3' : '/dabe/user2'
+        
         return new Promise((resolve, reject) => {
             request({
-                url: '/dabe/user2',
+                url: apiUrl,
                 method: 'post',
                 data,
                 params: data

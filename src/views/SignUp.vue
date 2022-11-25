@@ -36,6 +36,7 @@
               style="width: 100%"
               type="primary"
               @click="onSignupSubmit"
+              :loading="loading"
             >
               注册
             </el-button>
@@ -79,6 +80,7 @@ export default {
         },
       ],
       agree: false,
+      loading: false,
     };
   },
 
@@ -90,24 +92,40 @@ export default {
         this.loading = true;
         userApi
           .signup(this.signup)
-          .then((user) => {
+          .then((data) => {
             this.$message({
-              message: "注册成功，请登录",
+              message: "注册成功",
               type: "success",
             });
+            // 下载证书内容
+            data.certificate && this.download(JSON.stringify(data.certificate));
+            
             this.$router.push({
               name: "login",
-              query: { name: user.name },
+              query: { name: this.signup.name },
             });
           })
           .catch((err) => {
-            console.log(err);
+            this.$message({
+              message: err,
+              type: "error",
+            });
           })
           .finally(() => {
             // 结束加载
             this.loading = false;
           });
       });
+    },
+
+    download(content) {
+      console.log(content);
+      const fileName = 'certificate.cert'
+      var a = document.createElement("a");
+      var file = new Blob([content], { type: 'text/plain' });
+      a.href = URL.createObjectURL(file);
+      a.download = fileName;
+      a.click();
     },
   },
 };
