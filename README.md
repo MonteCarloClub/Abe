@@ -1,6 +1,12 @@
-# abe-kanlab
+# abe-kanlab【不再更新】
 
 数据共享交换
+
+**注意：本仓库已不再更新！！！**
+
+**注意：本仓库已不再更新！！！**
+
+转移至：https://github.com/MonteCarloClub/zdyf3
 
 ## VSCodeCounter
 
