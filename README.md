@@ -2,7 +2,7 @@
 
 数据共享交换
 
-打包好的前端静态资源见本仓库的 [Releases](releases)
+打包好的前端静态资源见本仓库的 **Releases**
 
 ## VSCodeCounter
 
