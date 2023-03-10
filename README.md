@@ -8,6 +8,8 @@
 
 转移至：https://github.com/MonteCarloClub/zdyf3
 
+打包好的前端静态资源见本仓库的 [Releases](./releases)
+
 ## VSCodeCounter
 
 Date : 2022-01-20 17:52:49
